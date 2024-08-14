@@ -19,6 +19,7 @@ const NavBar = () => { // profileImageUrl prop 추가
   };
 
   return (
+    <div>
     <div className="navbar">
       <div className="leftSection" onClick={goToMain}>
         <img src={logo} alt="BODA logo" className="logo" />
@@ -33,6 +34,9 @@ const NavBar = () => { // profileImageUrl prop 추가
       </div>
       <div className="separator" />
     </div>
+    <div class="body-content">
+  </div>
+  </div>
   );
 };
 
