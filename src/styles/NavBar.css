@@ -15,13 +15,13 @@
 }
 
 .logo {
-  height: 50px;
+  height: 40px;
   margin-right: 5px; /* 로고와 서비스 이름 간의 간격 조정 */
 }
 
 .serviceName {
   font-family: 'SBAggroB';
-  font-size: 35px; /* 서비스 이름 크기 증가 */
+  font-size: 25px; /* 서비스 이름 크기 증가 */
   font-weight: lighter;
   margin-top: 5px; /* 서비스 이름을 조금 내리기 */
 }
