@@ -68,7 +68,7 @@ const TravelRecommendation = () => {
       <div className="section-divider"></div>
 
       <div className="section">
-        <h2>당신의 여행 취향을 선택해 주세요</h2>
+        <h2>여행 취향을 선택해 주세요</h2>
         {preferences.map((pref, index) => (
           <div key={index} className="preference">
             <button
