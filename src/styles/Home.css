@@ -5,7 +5,9 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 50px;
-  width: 100%;  /* 전체 화면 너비를 차지하도록 설정 */
+  width: 100%;
+  max-width: 100%;  /* 최대 너비를 100%로 설정하여 가로가 넘치지 않도록 함 */
+  box-sizing: border-box;  /* 패딩을 포함한 전체 너비가 100%를 초과하지 않도록 설정 */
 }
 
 .text-section {
