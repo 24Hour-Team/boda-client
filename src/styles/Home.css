@@ -1,8 +1,129 @@
-.home-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center; /* 텍스트 중앙 정렬 */
+.main-container {
+  display: flex;
+  background-color: #E6E6FA;  /* Lavender background */
+  min-height: 50vh;  /* 최소 높이를 50vh로 설정 */
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 50px;
+  width: 100%;
+  max-width: 100%;  /* 최대 너비를 100%로 설정하여 가로가 넘치지 않도록 함 */
+  box-sizing: border-box;  /* 패딩을 포함한 전체 너비가 100%를 초과하지 않도록 설정 */
+}
+
+.text-section {
+  flex: 1;
+  padding-left: 180px; /* 왼쪽 여백을 통일하여 적용 */
+  padding-top: 150px;  /* 요소들을 아래로 내리기 위해 패딩 추가 */
+}
+
+.text-section h1 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.text-section p {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.recommend-button {
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.image-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-right: 180px; /* 우측 이미지의 오른쪽 여백을 180px로 설정 */
+}
+
+.image-section img {
+  max-width: 90%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* 반응형 디자인을 위한 Media Queries */
+@media (max-width: 1200px) {
+  .text-section {
+    padding-left: 180px;
+    padding-top: 100px;
   }
   
+  .image-section {
+    padding-right: 180px;
+  }
+  
+  .text-section h1 {
+    font-size: 1.8rem;
+  }
+  
+  .text-section p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .text-section {
+    padding-left: 80px;
+    padding-top: 80px;
+  }
+  
+  .image-section {
+    padding-right: 80px;
+  }
+  
+  .text-section h1 {
+    font-size: 1.5rem;
+  }
+  
+  .text-section p {
+    font-size: 0.9rem;
+  }
+  
+  .recommend-button {
+    font-size: 0.9rem;
+    padding: 8px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-container {
+    flex-direction: column;
+    padding: 20px;
+  }
+  
+  .text-section {
+    padding-left: 0;
+    padding-top: 50px;
+    text-align: center;
+  }
+  
+  .image-section {
+    padding-right: 0;
+    margin-top: 20px;
+  }
+  
+  .text-section h1 {
+    font-size: 1.2rem;
+  }
+  
+  .text-section p {
+    font-size: 0.8rem;
+  }
+  
+  .recommend-button {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+}
