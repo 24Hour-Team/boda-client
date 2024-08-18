@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../styles/TravelRecommendation.css';
+import { useNavigate } from 'react-router-dom';
 
 const regions = [
   '제주도', '서울', '부산', '대구', '인천', '광주', '대전', '울산', '세종', '수원', 
@@ -20,10 +21,15 @@ const preferences = [
 const seasons = ['봄', '여름', '가을', '겨울'];
 
 const TravelRecommendation = () => {
+  const navigate = useNavigate();
   const [selectedRegion, setSelectedRegion] = useState('');
   const [selectedPreferences, setSelectedPreferences] = useState(Array(preferences.length).fill(''));
   const [selectedSeason, setSelectedSeason] = useState('');
   
+  const goToResultPage = () => {
+    navigate('/result');
+  };
+
   const handleRegionClick = (region) => {
     setSelectedRegion(region);
   };
@@ -42,6 +48,7 @@ const TravelRecommendation = () => {
 
   const handleNextClick = () => {
     if (isNextEnabled) {
+      goToResultPage();
       console.log('Next step');
     }
   };
