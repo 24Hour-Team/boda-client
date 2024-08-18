@@ -1,5 +1,5 @@
 .container {
-  padding: 20px 150px; /* 양쪽에 180px 패딩 */
+  padding: 20px 150px;
   background-color: #e6e6fa; /* 라벤더 색상 */
 }
 
@@ -13,17 +13,17 @@
 .title {
   font-size: 24px;
   color: #333;
-  margin: 0; /* 제목 자체의 마진을 제거 */
+  margin: 0;
 }
 
 .date {
   font-size: 14px;
   color: #777;
-  margin: 0; /* 날짜 자체의 마진을 제거 */
+  margin: 0;
 }
 
 .divider {
-  margin: 10px 0; /* 구분선의 위아래 간격을 줄임 */
+  margin: 10px 0;
   border: none;
   border-top: 1px solid #ccc;
 }
@@ -45,27 +45,30 @@
 
 .destination-card {
   display: flex;
-  flex-direction: row; /* 사진과 정보를 가로로 배치 */
+  flex-direction: row;
   padding: 10px;
   background-color: #f8f8ff;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  align-items: center; /* 이미지와 정보를 수직 가운데 정렬 */
+  align-items: center;
   cursor: pointer;
+  min-height: 120px; /* 최소 높이를 설정하여 이미지 크기가 유지되도록 함 */
 }
 
 .destination-image {
-  width: 100px; /* 정사각형 크기 */
-  height: 100px; /* 정사각형 크기 */
-  background-color: #d3d3d3; /* 사진 대신 회색 블록으로 대체 */
+  width: 100px;
+  height: 100px;
+  background-color: #d3d3d3;
   border-radius: 8px;
-  margin-right: 15px; /* 이미지와 텍스트 사이에 간격 추가 */
+  margin-right: 15px;
+  flex-shrink: 0; /* 이미지가 줄어들지 않도록 설정 */
 }
 
 .destination-info {
   display: flex;
   flex-direction: column;
   gap: 5px;
+  flex: 1; /* 텍스트가 이미지 옆에 위치하면서 공간을 차지하도록 함 */
 }
 
 .destination-name {
@@ -76,6 +79,7 @@
 .destination-address {
   font-size: 14px;
   color: #555;
+  word-wrap: break-word; /* 긴 단어가 있으면 줄바꿈되도록 설정 */
 }
 
 .map-container {
@@ -86,48 +90,49 @@
 .map-wrapper {
   width: 100%;
   height: 100%;
-  border-radius: 10px; /* 지도의 가장자리를 둥글게 */
-  overflow: hidden; /* 둥근 가장자리가 지도의 내용에 적용되도록 */
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 /* 미디어 쿼리: 화면 너비가 1200px 이하일 때 */
 @media (max-width: 1200px) {
   .container {
-    padding: 20px 100px; /* 패딩을 줄임 */
+    padding: 20px 100px;
   }
 }
 
 /* 미디어 쿼리: 화면 너비가 768px 이하일 때 */
 @media (max-width: 768px) {
   .container {
-    padding: 20px 50px; /* 패딩을 더 줄임 */
+    padding: 20px 50px;
   }
 }
 
 /* 미디어 쿼리: 화면 너비가 480px 이하일 때 */
 @media (max-width: 480px) {
   .container {
-    padding: 10px 20px; /* 패딩을 최소로 줄임 */
+    padding: 10px 20px;
   }
 
   .title {
-    font-size: 20px; /* 제목 크기 줄임 */
+    font-size: 20px;
   }
 
   .date {
-    font-size: 12px; /* 날짜 크기 줄임 */
+    font-size: 12px;
   }
 
   .destination-card {
-    flex-direction: column; /* 카드 내 레이아웃을 세로로 변경 */
-    align-items: flex-start; /* 카드 내 항목을 왼쪽 정렬 */
+    flex-direction: column;
+    align-items: flex-start;
+    min-height: auto; /* 모바일에서는 최소 높이 설정을 해제 */
   }
 
   .destination-image {
-    width: 100%; /* 이미지 너비를 100%로 변경 */
-    height: auto; /* 높이를 자동으로 조절 */
-    margin-bottom: 10px; /* 이미지 아래 여백 추가 */
-    margin-right: 0; /* 오른쪽 여백 제거 */
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    margin-right: 0;
   }
 
   .destination-info {
