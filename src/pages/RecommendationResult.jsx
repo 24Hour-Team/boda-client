@@ -1,7 +1,8 @@
-import React, { useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom'; // useNavigate 훅을 임포트
+import React, { useEffect, useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/RecommendationResult.css';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
+import { fetchPlaceId, fetchPlaceDetails } from '../services/googlePlacesService';
 
 const destinations = [
   { name: '제주도', address: '제주특별자치도 제주시', lat: 33.4996213, lng: 126.5311884 },
@@ -12,8 +13,32 @@ const destinations = [
 ];
 
 const RecommendationResult = () => {
+  const [images, setImages] = useState({});
   const mapRef = useRef();
-  const navigate = useNavigate(); // useNavigate 훅을 사용하여 navigate 함수 생성
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const loadImages = async () => {
+      const imagePromises = destinations.map(async (destination) => {
+        const placeId = await fetchPlaceId(destination.name);
+        if (placeId) {
+          const imageUrl = await fetchPlaceDetails(placeId, 100);
+          return { name: destination.name, imageUrl };
+        }
+        return { name: destination.name, imageUrl: null };
+      });
+
+      const loadedImages = await Promise.all(imagePromises);
+      const imagesMap = loadedImages.reduce((acc, item) => {
+        acc[item.name] = item.imageUrl;
+        return acc;
+      }, {});
+
+      setImages(imagesMap);
+    };
+
+    loadImages();
+  }, []);
 
   useEffect(() => {
     const kakaoInterval = setInterval(() => {
@@ -43,9 +68,13 @@ const RecommendationResult = () => {
             <div
               className="destination-card"
               key={index}
-              onClick={() => navigate('/spot')} // 클릭 시 /spot 경로로 이동
+              onClick={() => navigate('/spot')}
             >
-              <div className="destination-image" />
+              <img
+                src={images[destination.name] || 'https://via.placeholder.com/100'}
+                alt={destination.name}
+                className="destination-image"
+              />
               <div className="destination-info">
                 <h2 className="destination-name">{destination.name}</h2>
                 <p className="destination-address">{destination.address}</p>
