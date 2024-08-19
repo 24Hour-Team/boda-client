@@ -1,0 +1,144 @@
+.container {
+  padding: 20px 150px;
+  background-color: #e6e6fa; /* 라벤더 색상 */
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 24px;
+  color: #333;
+  margin: 0;
+}
+
+.date {
+  font-size: 14px;
+  color: #777;
+  margin: 0;
+}
+
+.divider {
+  margin: 10px 0;
+  border: none;
+  border-top: 1px solid #ccc;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+}
+
+.sidebar {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  height: 100%;
+  margin-top: 20px;
+}
+
+.destination-card {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+  background-color: #f8f8ff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  align-items: center;
+  cursor: pointer;
+  min-height: 120px; /* 최소 높이를 설정하여 이미지 크기가 유지되도록 함 */
+}
+
+.destination-image {
+  width: 100px;
+  height: 100px;
+  background-color: #d3d3d3;
+  border-radius: 8px;
+  margin-right: 15px;
+  flex-shrink: 0; /* 이미지가 줄어들지 않도록 설정 */
+}
+
+.destination-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1; /* 텍스트가 이미지 옆에 위치하면서 공간을 차지하도록 함 */
+}
+
+.destination-name {
+  font-size: 18px;
+  color: #333;
+}
+
+.destination-address {
+  font-size: 14px;
+  color: #555;
+  word-wrap: break-word; /* 긴 단어가 있으면 줄바꿈되도록 설정 */
+}
+
+.map-container {
+  flex: 2;
+  padding: 20px;
+  height: 800px;
+}
+
+.map-wrapper {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* 미디어 쿼리: 화면 너비가 1200px 이하일 때 */
+@media (max-width: 1200px) {
+  .container {
+    padding: 20px 100px;
+  }
+}
+
+/* 미디어 쿼리: 화면 너비가 768px 이하일 때 */
+@media (max-width: 768px) {
+  .container {
+    padding: 20px 50px;
+  }
+}
+
+/* 미디어 쿼리: 화면 너비가 480px 이하일 때 */
+@media (max-width: 480px) {
+  .container {
+    padding: 10px 20px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .date {
+    font-size: 12px;
+  }
+
+  .destination-card {
+    flex-direction: column;
+    align-items: flex-start;
+    min-height: auto; /* 모바일에서는 최소 높이 설정을 해제 */
+  }
+
+  .destination-image {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    margin-right: 0;
+  }
+
+  .destination-info {
+    gap: 10px;
+  }
+}
