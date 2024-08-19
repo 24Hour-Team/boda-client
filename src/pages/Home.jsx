@@ -2,6 +2,8 @@ import React from 'react';
 import '../styles/Home.css';
 import background from '../assets/images/background.png';
 import { useNavigate } from 'react-router-dom';
+import TrendingDestination from '../components/TrendingDestination';
+
 
 const Home = () => {
   const navigate = useNavigate();
@@ -9,6 +11,13 @@ const Home = () => {
   const goToRecommendPage = () => {
     navigate('/recommend');
   };
+  
+  const destinations = [
+    { title: '제주도', description: '아름다운 자연 경관과 다양한 체험 활동' },
+    { title: '설악산', description: '웅장한 산악 경관과 다양한 등산 코스' },
+    { title: '경복궁', description: '조선 시대 왕궁의 아름다운 건축물' },
+    { title: '해운대 해수욕장', description: '부산의 대표적인 해수욕장' },
+  ];
   
   return (
     <div>
@@ -22,9 +31,14 @@ const Home = () => {
           <img src={background} alt="Travel Concept" />
         </div>
       </div>
-      <h1>----------------------------------</h1>
-      <h1>아래 다른 요소들 추가</h1>
-      <h1>----------------------------------</h1>
+      <div className="trend-container">
+        <h1>최근 인기 여행지</h1>
+        <div className="destinations-grid">
+          {destinations.map((dest, index) => (
+            <TrendingDestination key={index} title={dest.title} description={dest.description} />
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

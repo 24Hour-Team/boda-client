@@ -52,6 +52,11 @@
   height: auto;
   object-fit: contain;
 }
+.trend-container {
+  padding: 24px;
+  background-color: #f3f4f6;
+  min-height: 100vh;
+}
 
 /* 반응형 디자인을 위한 Media Queries */
 @media (max-width: 1200px) {
