@@ -34,7 +34,7 @@ const NavBar = () => { // profileImageUrl prop 추가
       </div>
       <div className="separator" />
     </div>
-    <div class="body-content">
+    <div className="body-content">
   </div>
   </div>
   );
