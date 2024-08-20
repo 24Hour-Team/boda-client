@@ -5,12 +5,14 @@ import Home from './pages/Home';
 import TravelRecommendation from "./pages/TravelRecommendation";
 import RecommendationResult from "./pages/RecommendationResult";
 import SpotDetail from "./pages/SpotDetail";
+import LoginPage from "./pages/LoginPage";
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Layout><Home /></Layout>} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/recommend" element={<Layout><TravelRecommendation /></Layout>} />
         <Route path="/result" element={<Layout><RecommendationResult /></Layout>} />
         <Route path="/spot" element={<Layout><SpotDetail /></Layout>} />      
