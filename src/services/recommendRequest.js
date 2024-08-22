@@ -1,8 +1,6 @@
 export const requestRecommendations = async (requestData) => {
-    const backendUrl = process.env.REACT_APP_BACKEND_URL;
     try {
-        console.error(backendUrl);
-      const response = await fetch(`${backendUrl}/api/v1/recommend/529acky@naver.com`, {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/recommend/529acky@naver.com`, {
         
         method: 'POST',
         headers: {

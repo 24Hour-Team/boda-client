@@ -13,7 +13,7 @@ function App() {
         <Route path="/" element={<Layout><Home /></Layout>} />
         <Route path="/recommend" element={<Layout><TravelRecommendation /></Layout>} />
         <Route path="/result" element={<Layout><RecommendationResult /></Layout>} />
-        <Route path="/spot" element={<Layout><SpotDetail /></Layout>} />      
+        <Route path="/spot/:spotId" element={<Layout><SpotDetail /></Layout>} />     
       </Routes>
     </Router>
   );

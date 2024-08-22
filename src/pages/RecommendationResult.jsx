@@ -15,7 +15,6 @@ const RecommendationResult = () => {
 
   useEffect(() => {
     if (destinations.length === 0) {
-      //alert("추천 결과가 없습니다. 처음으로 돌아갑니다.");
       navigate('/'); // 기본 경로로 리디렉션
     }
   }, [destinations, navigate]);
@@ -73,7 +72,7 @@ const RecommendationResult = () => {
             <div
               className="destination-card"
               key={index}
-              onClick={() => navigate('/spot')}
+              onClick={() => navigate(`/spot/${destination.id}`)}  // 수정된 부분
             >
               <img
                 src={images[destination.name] || 'https://via.placeholder.com/100'}
@@ -96,7 +95,7 @@ const RecommendationResult = () => {
             >
               {destinations.map((destination, index) => (
                 <MapMarker key={index} position={{ lat: destination.ycoord, lng: destination.xcoord }}>
-                  <div style={{ color: '#000', marginLeft: '10px' }}>{destination.name}</div>
+                  <div style={{ color: '#000', marginLeft: '5px' }}>{destination.name}</div>
                 </MapMarker>
               ))}
             </Map>
