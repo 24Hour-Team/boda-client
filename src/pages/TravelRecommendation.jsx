@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import '../styles/TravelRecommendation.css';
 import { useNavigate } from 'react-router-dom';
+import { requestRecommendations, getSeasonCode, getRegionCode } from '../services/recommendRequest';
 
 const regions = [
-  '제주도', '서울', '부산', '대구', '인천', '광주', '대전', '울산', '세종', '수원', 
-  '경주', '강릉', '속초', '여수', '거제통영', '남원'
+  '서울', '강릉', '수원', '가평', '대전', '인천', '부산', '대구', '춘천', '제주', '경주',
+  '공주', '서귀포', '전주', '군산', '광주', '순천', '속초', '양양', '단양', '여수', '태안'
 ];
 
 const preferences = [
@@ -25,10 +26,6 @@ const TravelRecommendation = () => {
   const [selectedRegion, setSelectedRegion] = useState('');
   const [selectedPreferences, setSelectedPreferences] = useState(Array(preferences.length).fill(''));
   const [selectedSeason, setSelectedSeason] = useState('');
-  
-  const goToResultPage = () => {
-    navigate('/result');
-  };
 
   const handleRegionClick = (region) => {
     setSelectedRegion(region);
@@ -46,10 +43,26 @@ const TravelRecommendation = () => {
 
   const isNextEnabled = selectedRegion && selectedPreferences.every(pref => pref) && selectedSeason;
 
-  const handleNextClick = () => {
+  const handleNextClick = async () => {
     if (isNextEnabled) {
-      goToResultPage();
-      console.log('Next step');
+      const requestData = {
+        season: getSeasonCode(selectedSeason),
+        regionClassification: getRegionCode(selectedRegion),
+        travelStyle1: selectedPreferences[0] === 'right',
+        travelStyle2: selectedPreferences[1] === 'right',
+        travelStyle3: selectedPreferences[2] === 'right',
+        travelStyle4: selectedPreferences[3] === 'right',
+        travelStyle5: selectedPreferences[4] === 'right',
+        travelStyle6: selectedPreferences[5] === 'right',
+        travelStyle7: selectedPreferences[6] === 'right',
+        travelStyle8: selectedPreferences[7] === 'right',
+      };
+
+      const result = await requestRecommendations(requestData);
+
+      if (result) {
+        navigate('/result', { state: { recommendations: result } });
+      }
     }
   };
 
