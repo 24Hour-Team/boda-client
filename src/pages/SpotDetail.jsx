@@ -1,34 +1,58 @@
 import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';  // useNavigate 추가
 import '../styles/SpotDetail.css';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import { fetchPlaceId, fetchPlaceDetails } from '../services/googlePlacesService';
 
 const SpotDetail = () => {
+  const { spotId } = useParams(); // URL에서 spotId 가져오기
+  const navigate = useNavigate();  // navigate 추가
+  const [spot, setSpot] = useState(null);
   const [spotImage, setSpotImage] = useState('');
 
-  // 예시 데이터
-  const spot = {
-    name: '성산일출봉',
-    address: '제주특별자치도 서귀포시 성산읍',
-    lat: 33.4592,
-    lng: 126.9427,
-  };
-
-  const mapUrl = `https://map.kakao.com/link/map/${spot.name},${spot.lat},${spot.lng}`;
-
   useEffect(() => {
-    const loadPlaceImage = async () => {
-      const placeId = await fetchPlaceId(spot.name); // 장소 이름으로 place_id 검색
-      if (placeId) {
-        const imageUrl = await fetchPlaceDetails(placeId, 400); // place_id로 이미지 가져오기
-        if (imageUrl) {
-          setSpotImage(imageUrl);
+    const fetchSpotDetails = async () => {
+      try {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/spot/${spotId}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch spot details');
         }
+        const data = await response.json();
+        
+        // 만약 spot 데이터가 없다면 홈으로 리디렉트
+        if (!data || !data.name) {
+          navigate('/');
+          return;
+        }
+
+        setSpot({
+          name: data.name,
+          address: data.address,
+          lat: parseFloat(data.ycoord),
+          lng: parseFloat(data.xcoord),
+        });
+
+        const placeId = await fetchPlaceId(data.name); // 장소 이름으로 place_id 검색
+        if (placeId) {
+          const imageUrl = await fetchPlaceDetails(placeId, 400); // place_id로 이미지 가져오기
+          if (imageUrl) {
+            setSpotImage(imageUrl);
+          }
+        }
+      } catch (error) {
+        console.error(error);
+        navigate('/'); // 에러가 발생하면 홈으로 리디렉션
       }
     };
 
-    loadPlaceImage();
-  }, [spot.name]);
+    fetchSpotDetails();
+  }, [spotId, navigate]);
+
+  if (!spot) {
+    return <div>Loading...</div>;
+  }
+
+  const mapUrl = `https://map.kakao.com/link/map/${spot.name},${spot.lat},${spot.lng}`;
 
   return (
     <div className="container">
@@ -55,7 +79,7 @@ const SpotDetail = () => {
               style={{ width: '100%', height: '100%' }}
             >
               <MapMarker position={{ lat: spot.lat, lng: spot.lng }}>
-                <div style={{ color: '#000', marginLeft: '10px' }}>{spot.name}</div>
+                <div style={{ color: '#000', marginLeft: '5px' }}>{spot.name}</div>
               </MapMarker>
             </Map>
           </div>

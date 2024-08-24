@@ -1,21 +1,22 @@
 import React, { useState } from 'react';
 import '../styles/TravelRecommendation.css';
 import { useNavigate } from 'react-router-dom';
+import { requestRecommendations, getSeasonCode, getRegionCode } from '../services/recommendRequest';
 
 const regions = [
-  '제주도', '서울', '부산', '대구', '인천', '광주', '대전', '울산', '세종', '수원', 
-  '경주', '강릉', '속초', '여수', '거제통영', '남원'
+  '서울', '강릉', '수원', '가평', '대전', '인천', '부산', '대구', '춘천', '제주', '경주',
+  '공주', '전주', '군산', '광주', '순천', '속초', '양양', '단양', '여수', '태안'
 ];
 
 const preferences = [
   { left: '자연', right: '도시' },
   { left: '숙박', right: '당일' },
   { left: '새로운', right: '익숙한' },
-  { left: '편함비쌈숙소', right: '불편함저렴함숙소' },
+  { left: '편하고 비싼 숙소', right: '불편하고 저렴한 숙소' },
   { left: '휴양휴식', right: '엑티비티' },
-  { left: '안유명한', right: '유명한' },
+  { left: '안 유명한', right: '유명한' },
   { left: '계획', right: '상황' },
-  { left: '사진중요', right: '사진안중요' }
+  { left: '사진 중요', right: '사진 안 중요' }
 ];
 
 const seasons = ['봄', '여름', '가을', '겨울'];
@@ -25,10 +26,7 @@ const TravelRecommendation = () => {
   const [selectedRegion, setSelectedRegion] = useState('');
   const [selectedPreferences, setSelectedPreferences] = useState(Array(preferences.length).fill(''));
   const [selectedSeason, setSelectedSeason] = useState('');
-  
-  const goToResultPage = () => {
-    navigate('/result');
-  };
+  const [loading, setLoading] = useState(false); // 로딩 상태 추가
 
   const handleRegionClick = (region) => {
     setSelectedRegion(region);
@@ -44,12 +42,35 @@ const TravelRecommendation = () => {
     setSelectedSeason(season);
   };
 
-  const isNextEnabled = selectedRegion && selectedPreferences.every(pref => pref) && selectedSeason;
+  const isNextEnabled = selectedRegion && selectedPreferences.every(pref => pref) && selectedSeason && !loading;
 
-  const handleNextClick = () => {
+  const handleNextClick = async () => {
     if (isNextEnabled) {
-      goToResultPage();
-      console.log('Next step');
+      setLoading(true); // 로딩 시작
+      try {
+        const requestData = {
+          season: getSeasonCode(selectedSeason),
+          regionClassification: getRegionCode(selectedRegion),
+          travelStyle1: selectedPreferences[0] === 'right',
+          travelStyle2: selectedPreferences[1] === 'right',
+          travelStyle3: selectedPreferences[2] === 'right',
+          travelStyle4: selectedPreferences[3] === 'right',
+          travelStyle5: selectedPreferences[4] === 'right',
+          travelStyle6: selectedPreferences[5] === 'right',
+          travelStyle7: selectedPreferences[6] === 'right',
+          travelStyle8: selectedPreferences[7] === 'right',
+        };
+
+        const resultId = await requestRecommendations(requestData);
+
+        if (resultId) {
+          navigate(`/result/${resultId}`);
+        }
+      } catch (err) {
+        console.error('Error fetching recommendations:', err);
+      } finally {
+        setLoading(false); // 로딩 종료
+      }
     }
   };
 
@@ -118,7 +139,7 @@ const TravelRecommendation = () => {
           onClick={handleNextClick}
           disabled={!isNextEnabled}
         >
-          다음
+          {loading ? '로딩 중...' : '다음'} {/* 로딩 중이면 텍스트 변경 */}
         </button>
       </div>
     </div>

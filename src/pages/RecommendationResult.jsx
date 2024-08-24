@@ -1,65 +1,82 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import '../styles/RecommendationResult.css';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import { fetchPlaceId, fetchPlaceDetails } from '../services/googlePlacesService';
 
-const destinations = [
-  { name: '제주도', address: '제주특별자치도 제주시', lat: 33.4996213, lng: 126.5311884 },
-  { name: '한라산', address: '제주특별자치도 서귀포시', lat: 33.3617, lng: 126.5292 },
-  { name: '섭지코지', address: '제주특별자치도 서귀포시 성산읍', lat: 33.4238, lng: 126.9278 },
-  { name: '우도', address: '제주특별자치도 제주시 우도면', lat: 33.5063, lng: 126.9528 },
-  { name: '성산일출봉', address: '제주특별자치도 서귀포시 성산읍', lat: 33.4592, lng: 126.9427 },
-];
-
 const RecommendationResult = () => {
   const [images, setImages] = useState({});
+  const [destinations, setDestinations] = useState([]);
+  const [createdDateTime, setCreatedDateTime] = useState('');
   const mapRef = useRef();
   const navigate = useNavigate();
+  const { resultId } = useParams();
 
   useEffect(() => {
-    const loadImages = async () => {
-      const imagePromises = destinations.map(async (destination) => {
-        const placeId = await fetchPlaceId(destination.name);
-        if (placeId) {
-          const imageUrl = await fetchPlaceDetails(placeId, 100);
-          return { name: destination.name, imageUrl };
+    const fetchRecommendations = async () => {
+      try {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/recommend/${resultId}/529acky@naver.com`);
+        const data = await response.json();
+
+        if (!data || !data.spotResponses || data.spotResponses.length === 0) {
+          navigate('/'); // 결과가 없으면 기본 경로로 리디렉션
+          return;
         }
-        return { name: destination.name, imageUrl: null };
-      });
 
-      const loadedImages = await Promise.all(imagePromises);
-      const imagesMap = loadedImages.reduce((acc, item) => {
-        acc[item.name] = item.imageUrl;
-        return acc;
-      }, {});
-
-      setImages(imagesMap);
+        setCreatedDateTime(new Date(data.createdDateTime).toLocaleDateString());
+        setDestinations(data.spotResponses);
+      } catch (error) {
+        console.error('Error fetching recommendations:', error);
+        navigate('/'); // 에러 발생 시 기본 경로로 리디렉션
+      }
     };
 
-    loadImages();
-  }, []);
+    fetchRecommendations();
+  }, [resultId, navigate]);
+
+  useEffect(() => {
+    if (destinations.length > 0) {
+      const loadImages = async () => {
+        const imagePromises = destinations.map(async (destination) => {
+          const placeId = await fetchPlaceId(destination.name);
+          if (placeId) {
+            const imageUrl = await fetchPlaceDetails(placeId, 100);
+            return { name: destination.name, imageUrl };
+          }
+          return { name: destination.name, imageUrl: null };
+        });
+
+        const loadedImages = await Promise.all(imagePromises);
+        const imagesMap = loadedImages.reduce((acc, item) => {
+          acc[item.name] = item.imageUrl;
+          return acc;
+        }, {});
+
+        setImages(imagesMap);
+      };
+
+      loadImages();
+    }
+  }, [destinations]);
 
   useEffect(() => {
     const kakaoInterval = setInterval(() => {
-      if (window.kakao && window.kakao.maps && mapRef.current) {
+      if (window.kakao && window.kakao.maps && mapRef.current && destinations.length > 0) {
         const bounds = new window.kakao.maps.LatLngBounds();
         destinations.forEach(destination => {
-          bounds.extend(new window.kakao.maps.LatLng(destination.lat, destination.lng));
+          bounds.extend(new window.kakao.maps.LatLng(destination.ycoord, destination.xcoord));
         });
         mapRef.current.setBounds(bounds);
         clearInterval(kakaoInterval);
       }
     }, 100);
-  }, []);
-
-  const currentDate = new Date().toLocaleDateString();
+  }, [destinations]);
 
   return (
     <div className="container">
       <div className="header">
         <h1 className="title">AI의 사용자 맞춤 추천 여행지</h1>
-        <p className="date">{currentDate}</p>
+        <p className="date">{createdDateTime}</p>
       </div>
       <hr className="divider" />
       <div className="content">
@@ -68,7 +85,7 @@ const RecommendationResult = () => {
             <div
               className="destination-card"
               key={index}
-              onClick={() => navigate('/spot')}
+              onClick={() => navigate(`/spot/${destination.id}`)}
             >
               <img
                 src={images[destination.name] || 'https://via.placeholder.com/100'}
@@ -85,13 +102,13 @@ const RecommendationResult = () => {
         <div className="map-container">
           <div className="map-wrapper">
             <Map 
-              center={{ lat: 33.4996213, lng: 126.5311884 }} 
+              center={{ lat: destinations[0]?.ycoord || 33.4996213, lng: destinations[0]?.xcoord || 126.5311884 }} 
               style={{ width: '100%', height: '100%' }} 
               ref={mapRef}
             >
               {destinations.map((destination, index) => (
-                <MapMarker key={index} position={{ lat: destination.lat, lng: destination.lng }}>
-                  <div style={{ color: '#000', marginLeft: '10px' }}>{destination.name}</div>
+                <MapMarker key={index} position={{ lat: destination.ycoord, lng: destination.xcoord }}>
+                  <div style={{ color: '#000', marginLeft: '5px' }}>{destination.name}</div>
                 </MapMarker>
               ))}
             </Map>
