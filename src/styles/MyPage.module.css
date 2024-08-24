@@ -1,0 +1,190 @@
+/* 전체 페이지 레이아웃 */
+.myPageContainer {
+    padding: 20px 150px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-color: #e6e6fa; /* 라벤더 배경 색상 */
+  }
+  
+  /* 상단 제목 */
+  .pageTitle {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 5px; /* 제목과 가로선 사이의 간격을 줄임 */
+  }
+  
+  .horizontalLine {
+    width: 100%;
+    height: 1px;
+    background-color: #ccc;
+    margin-bottom: 10px; /* 가로선과 아래 요소들 사이의 간격을 줄임 */
+  }
+  
+  .contentContainer {
+    display: flex;
+    gap: 20px;
+  }
+  
+  /* 왼쪽에 위치하는 섹션들 */
+  .leftSection {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 1; /* 왼쪽 절반 차지 */
+  }
+  
+  .userInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* 요소 간 간격을 줄임 */
+    background-color: #f0f0f0; /* 배경 색상 */
+    padding: 15px; /* padding 줄이기 */
+    border-radius: 10px;
+    height: auto; /* 높이 자동 조정 */
+    min-height: 150px; /* 최소 높이 설정 */
+  }
+  
+  .profileSection {
+    display: flex;
+    align-items: center; /* 이미지와 텍스트를 수직 중앙 정렬 */
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 10px;
+  }
+  
+  .profileImage {
+    width: 120px;
+    height: 120px;
+    background-color: #ccc;
+    border-radius: 60px;
+  }
+  
+  .userDetails {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    text-align: right;
+    flex: 1;
+  }
+  
+  .nickname {
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 15px; /* 닉네임을 이미지 오른쪽에 배치 */
+    align-self: flex-start; /* 닉네임을 좌측 정렬 */
+  }
+  
+  .additionalInfo {
+    flex-direction: column;
+  }
+  
+  .bookmarkSection {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 540px;
+  }
+  
+  .bookmarkHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+  
+  .addButton {
+    padding: 8px 15px;
+    background-color: #aaa;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .bookmarkList {
+    max-height: 540px; /* 스크롤 높이 설정 */
+    overflow-y: auto; /* 스크롤 활성화 */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .bookmarkItem {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 10px;
+  }
+  
+  .bookmarkImage {
+    width: 60px;
+    height: 60px;
+    background-color: #ccc;
+    border-radius: 10px;
+  }
+  
+  .bookmarkInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  /* 오른쪽 전체에 지난 AI 추천을 표시 */
+  .recommendationSection {
+    flex: 1; /* 오른쪽 절반을 차지하도록 */
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-height: 800px;
+  }
+  
+  .recommendationList {
+    max-height: 800px; /* 스크롤 높이 설정 */
+    overflow-y: auto; /* 스크롤 활성화 */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .recommendationItem {
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 10px;
+  }
+  
+  h3 {
+    margin: 0;
+  }
+  
+  h4 {
+    margin: 0;
+  }
+  
+  /* 미디어 쿼리 */
+  @media (max-width: 1200px) {
+    .myPageContainer {
+      padding: 20px 100px;
+    }
+  }
+  
+  @media (max-width: 800px) {
+    .myPageContainer {
+      padding: 20px 50px;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .myPageContainer {
+      padding: 20px 20px;
+    }
+  }
+  
