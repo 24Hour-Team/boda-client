@@ -7,9 +7,11 @@ const RegisterPage = () => {
   const [age, setAge] = useState('');
 
   const handleSubmit = async (e) => {
+    const backendUrl = process.env.BACKEND_URL;
+
     e.preventDefault();
     try {
-      const response = await fetch('/api/user/register', {
+      const response = await fetch(`${backendUrl}/api/v1/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
