@@ -1,23 +1,38 @@
-import React, { useEffect, useState, useRef, useMemo } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import React, { useEffect, useState, useRef } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import '../styles/RecommendationResult.css';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import { fetchPlaceId, fetchPlaceDetails } from '../services/googlePlacesService';
 
 const RecommendationResult = () => {
   const [images, setImages] = useState({});
+  const [destinations, setDestinations] = useState([]);
+  const [createdDateTime, setCreatedDateTime] = useState('');
   const mapRef = useRef();
   const navigate = useNavigate();
-  const location = useLocation();
-
-  // 전달된 상태에서 데이터를 가져옴
-  const destinations = useMemo(() => location.state?.recommendations || [], [location.state?.recommendations]);
+  const { resultId } = useParams();
 
   useEffect(() => {
-    if (destinations.length === 0) {
-      navigate('/'); // 기본 경로로 리디렉션
-    }
-  }, [destinations, navigate]);
+    const fetchRecommendations = async () => {
+      try {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/recommend/${resultId}/529acky@naver.com`);
+        const data = await response.json();
+
+        if (!data || !data.spotResponses || data.spotResponses.length === 0) {
+          navigate('/'); // 결과가 없으면 기본 경로로 리디렉션
+          return;
+        }
+
+        setCreatedDateTime(new Date(data.createdDateTime).toLocaleDateString());
+        setDestinations(data.spotResponses);
+      } catch (error) {
+        console.error('Error fetching recommendations:', error);
+        navigate('/'); // 에러 발생 시 기본 경로로 리디렉션
+      }
+    };
+
+    fetchRecommendations();
+  }, [resultId, navigate]);
 
   useEffect(() => {
     if (destinations.length > 0) {
@@ -46,7 +61,7 @@ const RecommendationResult = () => {
 
   useEffect(() => {
     const kakaoInterval = setInterval(() => {
-      if (window.kakao && window.kakao.maps && mapRef.current) {
+      if (window.kakao && window.kakao.maps && mapRef.current && destinations.length > 0) {
         const bounds = new window.kakao.maps.LatLngBounds();
         destinations.forEach(destination => {
           bounds.extend(new window.kakao.maps.LatLng(destination.ycoord, destination.xcoord));
@@ -57,13 +72,11 @@ const RecommendationResult = () => {
     }, 100);
   }, [destinations]);
 
-  const currentDate = new Date().toLocaleDateString();
-
   return (
     <div className="container">
       <div className="header">
         <h1 className="title">AI의 사용자 맞춤 추천 여행지</h1>
-        <p className="date">{currentDate}</p>
+        <p className="date">{createdDateTime}</p>
       </div>
       <hr className="divider" />
       <div className="content">
@@ -72,7 +85,7 @@ const RecommendationResult = () => {
             <div
               className="destination-card"
               key={index}
-              onClick={() => navigate(`/spot/${destination.id}`)}  // 수정된 부분
+              onClick={() => navigate(`/spot/${destination.id}`)}
             >
               <img
                 src={images[destination.name] || 'https://via.placeholder.com/100'}

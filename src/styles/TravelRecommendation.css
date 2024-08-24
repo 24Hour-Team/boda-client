@@ -24,7 +24,7 @@ h2 {
 .options {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; /* 가운데 정렬 */
+  justify-content: flex-start; /* 왼쪽 정렬 */
   gap: 20px; /* 버튼 간격 증가 */
 }
 
@@ -34,7 +34,7 @@ h2 {
   border-radius: 5px;
   background-color: #E6E6FA; /* 라벤더 색상 */
   cursor: pointer;
-  flex: 1 0 21%; /* 버튼 크기 및 배치 조정 */
+  flex: 0 1 calc(25% - 20px); /* 버튼 크기 및 배치 조정 */
   text-align: center;
   transition: background-color 0.3s, color 0.3s; /* 호버 및 클릭 시 색상 전환 */
 }

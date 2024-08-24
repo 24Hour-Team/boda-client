@@ -46,7 +46,6 @@ export const requestRecommendations = async (requestData) => {
       '제주': 'JEJU',
       '경주': 'GYEONGJU',
       '공주': 'GONGJU',
-      '서귀포': 'SEOGWIPO',
       '전주': 'JEONJU',
       '군산': 'GUNSAN',
       '광주': 'GWANGJU',
