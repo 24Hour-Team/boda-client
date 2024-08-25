@@ -13,7 +13,7 @@
     background-color: white;
     padding: 30px;
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
   
   h1 {
@@ -82,4 +82,21 @@
   
   input[type="text"]::placeholder {
     color: #999;
+  }
+
+  .main-title {
+    font-size: 35px;
+    color: rgba(0, 0, 0, 0.7);
+    text-align: center;
+    margin-bottom: 45px;
+    font-weight: 300;
+    line-height: 1.2; /*줄 간격 줄임*/
+  }
+  
+  .boda-text {
+    font-size: 40px;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.8);
+    display: inline-block;
+    margin-right: 10px;
   }

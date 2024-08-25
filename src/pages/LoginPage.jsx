@@ -38,6 +38,11 @@ const LoginPage = () => {
   return (
     <div className="login-page">
       <div className="login-container">
+        <h1 className="login-main-title">
+          당신의 여행을
+          <br />
+          <span className="login-boda-text">BODA</span> 완벽하게
+        </h1>
         <h1 className="login-title">로그인</h1>
         <p className="login-description">
           간편하게 로그인하고 다양한 서비스를 이용해보세요.

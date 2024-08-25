@@ -54,7 +54,13 @@ const RegisterPage = () => {
   return (
     <div className="background">
       <div className="register-container">
-        <h1>추가 정보 입력</h1>
+        <h1 className="main-title">
+          당신의 여행을
+          <br />
+          <span className="boda-text">BODA</span> 완벽하게
+        </h1>
+
+        <h1>회원가입</h1>
         <p>계정 설정을 완료하려면 몇 가지 추가 정보를 입력하세요.</p>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
