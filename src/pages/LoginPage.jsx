@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { loginSuccess, logout } from "../features/auth/authSlice";
+import { logout } from "../features/auth/authSlice";
 import kakaoLoginButton from '../assets/images/kakaoLoginButton.png';
 import '../styles/LoginPage.css';
 
@@ -9,30 +9,20 @@ const LoginPage = () => {
 
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const navigate = useNavigate();
-  const location = useLocation();
   const dispatch = useDispatch();
 
   const handleKakaoLogin = () => {
-    alert("로그인에 성공했습니다!");
-    dispatch(loginSuccess(true)); 
-    navigate("/");
-    // 백엔드에서 제공하는 카카오 로그인 URL로 리다이렉트 (수정 필요)
-    // window.location.href = 'http://your-backend-url.com/auth/kakao';
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
+    //백엔드에서 제공하는 카카오 로그인 URL로 리다이렉트
+    window.location.href = `${backendUrl}/oauth2/authorization/kakao`;
   };
 
-  // 로그인 상태 확인을 위한 useEffect
   useEffect(() => {
-    const queryParams = new URLSearchParams(location.search);
-    const loginStatus = queryParams.get("login");
-
-    if (loginStatus === "success") {
-      alert("로그인에 성공했습니다!");
-      dispatch(loginSuccess(true));
-      navigate("/", { replace: true });
-    } else if (loginStatus === "failed") {
-      alert("로그인에 실패했습니다.");
+    if (isLoggedIn) {
+      navigate('/');
     }
-  }, [location, dispatch, navigate]);
+  }, [isLoggedIn, navigate]);
 
   const handleKakaoLogout = () => {
     const BASE_URL = import.meta.env.VITE_BASE_URL;

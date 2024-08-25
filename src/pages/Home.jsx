@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 const Home = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const navigate = useNavigate();
+  console.log("isLoggedIn:", isLoggedIn); 
 
   const goToRecommendPage = () => {
     navigate('/recommend');

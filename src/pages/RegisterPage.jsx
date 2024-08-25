@@ -1,13 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../styles/RegisterPage.css';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { loginSuccess, logout } from "../features/auth/authSlice";
 
 const RegisterPage = () => {
   const [nickname, setNickname] = useState('');
   const [gender, setGender] = useState('');
-  const [age, setAge] = useState('');
+  const [ageRange, setAgeRange] = useState('');
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const location = useLocation();
+
 
   const handleSubmit = async (e) => {
-    const backendUrl = process.env.BACKEND_URL;
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
     e.preventDefault();
     try {
@@ -16,10 +23,13 @@ const RegisterPage = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ nickname, gender, age }),
+        credentials: 'include', 
+        body: JSON.stringify({ nickname, gender, ageRange }),
       });
       if (response.ok) {
         console.log('추가 정보가 성공적으로 제출되었습니다.');
+        dispatch(loginSuccess());
+        navigate('/');
       } else {
         console.error('추가 정보 제출에 실패했습니다.');
       }
@@ -27,6 +37,19 @@ const RegisterPage = () => {
       console.error('오류:', error);
     }
   };
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const loginStatus = queryParams.get("login");
+
+    if (loginStatus === "success") {
+      alert("로그인에 성공했습니다!");
+      dispatch(loginSuccess(true));
+      navigate("/", { replace: true });
+    } else if (loginStatus === "failed") {
+      alert("로그인에 실패했습니다.");
+    }
+  }, [location, dispatch, navigate]);
 
   return (
     <div className="background">
@@ -59,11 +82,11 @@ const RegisterPage = () => {
             </select>
           </div>
           <div className="form-group">
-            <label htmlFor="age">나이</label>
+            <label htmlFor="ageRange">나이</label>
             <select
-              id="age"
-              value={age}
-              onChange={(e) => setAge(e.target.value)}
+              id="ageRange"
+              value={ageRange}
+              onChange={(e) => setAgeRange(e.target.value)}
               required
             >
               <option value="">나이 선택</option>
