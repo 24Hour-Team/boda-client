@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../features/auth/authSlice";
+import { loginSuccess, logout } from "../features/auth/authSlice";
 import kakaoLoginButton from '../assets/images/kakaoLoginButton.png';
 import '../styles/LoginPage.css';
 
@@ -14,8 +14,9 @@ const LoginPage = () => {
   const handleKakaoLogin = () => {
     const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
-    //백엔드에서 제공하는 카카오 로그인 URL로 리다이렉트
+    //백엔드에서 제공하는 카카오 로그인 URL로 리다이렉트 
     window.location.href = `${backendUrl}/oauth2/authorization/kakao`;
+    //dispatch(loginSuccess(true));
   };
 
   useEffect(() => {
