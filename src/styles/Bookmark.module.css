@@ -5,6 +5,7 @@
     flex-direction: column;
     gap: 15px;
     background-color: #e6e6fa;
+    min-height: 700px;
   }
   
   .pageTitle {
@@ -28,9 +29,10 @@
     background-color: #f0f0f0;
     padding: 15px;
     border-radius: 10px;
-    width: 900px;
+    width: 90%; /* 고정된 너비를 비율로 변경 */
+    max-width: 900px; /* 최대 너비 설정 */
     margin: 0 auto;
-  }
+}
   
   .folderHeader {
     display: flex;
@@ -73,10 +75,11 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-top: 20px; /* 폴더 정보와의 간격을 추가 */
-    width: 800px;
+    margin-top: 20px;
+    width: 90%; /* 고정된 너비를 비율로 변경 */
+    max-width: 800px; /* 최대 너비 설정 */
     margin: 0 auto;
-  }
+}
   
   .spotHeader {
     display: flex;
@@ -124,6 +127,13 @@
     flex-direction: column;
     gap: 20px;
   }
+
+  .emptyMessage {
+    font-size: 14px;
+    color: #888;
+    text-align: center;
+    margin-top: 10px;
+    }
   
   .spotItem {
     display: flex;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import '../styles/RecommendationResult.css';
+import styles from '../styles/RecommendationResult.module.css';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import { fetchPlaceId, fetchPlaceDetails } from '../services/googlePlacesService';
 
@@ -73,34 +73,34 @@ const RecommendationResult = () => {
   }, [destinations]);
 
   return (
-    <div className="container">
-      <div className="header">
-        <h1 className="title">AI의 사용자 맞춤 추천 여행지</h1>
-        <p className="date">{createdDateTime}</p>
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <h1 className={styles.title}>AI의 사용자 맞춤 추천 여행지</h1>
+        <p className={styles.date}>{createdDateTime}</p>
       </div>
-      <hr className="divider" />
-      <div className="content">
-        <div className="sidebar">
+      <hr className={styles.divider} />
+      <div className={styles.content}>
+        <div className={styles.sidebar}>
           {destinations.map((destination, index) => (
             <div
-              className="destination-card"
+              className={styles.destinationCard}
               key={index}
               onClick={() => navigate(`/spot/${destination.id}`)}
             >
               <img
                 src={images[destination.name] || 'https://via.placeholder.com/100'}
                 alt={destination.name}
-                className="destination-image"
+                className={styles.destinationImage}
               />
-              <div className="destination-info">
-                <h2 className="destination-name">{destination.name}</h2>
-                <p className="destination-address">{destination.address}</p>
+              <div className={styles.destinationInfo}>
+                <h2 className={styles.destinationName}>{destination.name}</h2>
+                <p className={styles.destinationAddress}>{destination.address}</p>
               </div>
             </div>
           ))}
         </div>
-        <div className="map-container">
-          <div className="map-wrapper">
+        <div className={styles.mapContainer}>
+          <div className={styles.mapWrapper}>
             <Map 
               center={{ lat: destinations[0]?.ycoord || 33.4996213, lng: destinations[0]?.xcoord || 126.5311884 }} 
               style={{ width: '100%', height: '100%' }} 

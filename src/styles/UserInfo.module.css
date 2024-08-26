@@ -4,7 +4,7 @@
     flex-direction: column;
     gap: 15px;
     background-color: #e6e6fa;
-    height: 500px;
+    min-height: 700px;
 }
 
 .pageTitle {
