@@ -47,15 +47,15 @@ const travelStyles = [
 
 const MyPage = () => {
   const [recommendations, setRecommendations] = useState([]);
+  const [bookmarks, setBookmarks] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchRecommendations = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/recommend/list/529acky@naver.com`); // 백엔드 API 경로에 맞게 수정
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/recommend/list/529acky@naver.com`);
         const data = await response.json();
 
-        // 최신 날짜가 위로 오도록 정렬
         const sortedData = data.sort((a, b) => new Date(b.createdDateTime) - new Date(a.createdDateTime));
         setRecommendations(sortedData);
       } catch (error) {
@@ -63,11 +63,36 @@ const MyPage = () => {
       }
     };
 
+    const fetchBookmarks = async () => {
+      try {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/bookmark/folder/list/529acky@naver.com`);
+        const data = await response.json();
+
+        const sortedBookmarks = data.sort((a, b) => new Date(b.createdDateTime) - new Date(a.createdDateTime));
+        setBookmarks(sortedBookmarks);
+      } catch (error) {
+        console.error('Failed to fetch bookmarks:', error);
+      }
+    };
+
     fetchRecommendations();
+    fetchBookmarks();
   }, []);
 
   const handleItemClick = (id) => {
     navigate(`/result/${id}`);
+  };
+
+  const handleDelete = (id) => {
+    const confirmed = window.confirm("해당 북마크 폴더를 삭제하시겠습니까?");
+    if (confirmed) {
+      // 여기서 삭제 로직을 구현하세요.
+      console.log(`Deleting item with id: ${id}`);
+    }
+  };
+
+  const handleBookmarkClick = (id) => {
+    navigate(`/bookmark/${id}`);
   };
 
   const renderTravelStyles = (recommendation) => {
@@ -75,6 +100,7 @@ const MyPage = () => {
       recommendation[`travelStyle${index + 1}`] ? style.right : style.left
     )).join(', ');
   };
+
   return (
     <div className={styles.myPageContainer}>
       <div className={styles.pageTitle}>마이페이지</div>
@@ -106,48 +132,31 @@ const MyPage = () => {
               <button className={styles.addButton}>+ 추가</button>
             </div>
             <div className={styles.bookmarkList}>
-              <div className={styles.bookmarkItem}>
-                <img src={folder} alt="folder" className={styles.bookmarkImage} />
-                <div className={styles.bookmarkInfo}>
-                  <h4>서울 여행</h4>
-                  <p>생성 날짜</p>
+              {bookmarks.map((bookmark) => (
+                <div
+                  key={bookmark.id}
+                  className={styles.bookmarkItem}
+                  onClick={() => handleBookmarkClick(bookmark.id)}
+                >
+                  <img src={folder} alt="folder" className={styles.bookmarkImage} />
+                  <div className={styles.bookmarkInfo}>
+                    <h4>{bookmark.name}</h4>
+                    <div></div><div></div>
+                    <p className={styles.date}>
+                      {new Date(bookmark.createdDateTime).toLocaleDateString()}
+                    </p>
+                  </div>
+                  <button
+                    className={styles.deleteButton}
+                    onClick={(e) => {
+                      e.stopPropagation(); // 클릭 이벤트가 상위로 전파되지 않도록 함
+                      handleDelete(bookmark.id);
+                    }}
+                  >
+                    삭제
+                  </button>
                 </div>
-              </div>
-              <div className={styles.bookmarkItem}>
-                <img src={folder} alt="folder" className={styles.bookmarkImage} />
-                <div className={styles.bookmarkInfo}>
-                  <h4>강릉 여행</h4>
-                  <p>생성 날짜</p>
-                </div>
-              </div>
-              <div className={styles.bookmarkItem}>
-                <img src={folder} alt="folder" className={styles.bookmarkImage} />
-                <div className={styles.bookmarkInfo}>
-                  <h4>제주도 여행</h4>
-                  <p>생성 날짜</p>
-                </div>
-              </div>
-              <div className={styles.bookmarkItem}>
-                <img src={folder} alt="folder" className={styles.bookmarkImage} />
-                <div className={styles.bookmarkInfo}>
-                  <h4>서울 여행</h4>
-                  <p>생성 날짜</p>
-                </div>
-              </div>
-              <div className={styles.bookmarkItem}>
-                <img src={folder} alt="folder" className={styles.bookmarkImage} />
-                <div className={styles.bookmarkInfo}>
-                  <h4>강릉 여행</h4>
-                  <p>생성 날짜</p>
-                </div>
-              </div>
-              <div className={styles.bookmarkItem}>
-                <img src={folder} alt="folder" className={styles.bookmarkImage} />
-                <div className={styles.bookmarkInfo}>
-                  <h4>제주도 여행</h4>
-                  <p>생성 날짜</p>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
@@ -165,7 +174,7 @@ const MyPage = () => {
                   <h4 className={styles.recommendationTitle}>
                     {regionMap[rec.regionClassification]} {seasonMap[rec.season]} 여행
                   </h4>
-                  <p className={styles.recommendationDate}>
+                  <p className={styles.date}>
                     {new Date(rec.createdDateTime).toLocaleDateString()}
                   </p>
                 </div>

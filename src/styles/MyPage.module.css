@@ -120,6 +120,8 @@
     padding: 10px;
     background-color: #fff;
     border-radius: 10px;
+    position: relative;
+    cursor: pointer;
   }
   
   .bookmarkImage {
@@ -132,6 +134,18 @@
     display: flex;
     flex-direction: column;
     gap: 5px;
+    flex: 1;
+  }
+  
+  .deleteButton {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 15px;
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
   }
   
   /* 오른쪽 전체에 지난 AI 추천을 표시 */
@@ -175,7 +189,7 @@
     margin: 0;
   }
   
-  .recommendationDate {
+  .date {
     font-size: 14px;
     color: #888;
     margin: 0;
@@ -213,4 +227,3 @@
       padding: 20px 20px;
     }
   }
-  
