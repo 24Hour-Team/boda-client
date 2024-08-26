@@ -125,7 +125,6 @@
   .bookmarkImage {
     width: 60px;
     height: 60px;
-    background-color: #ccc;
     border-radius: 10px;
   }
   
@@ -156,9 +155,36 @@
   }
   
   .recommendationItem {
-    padding: 10px;
+    padding: 15px;
     background-color: #fff;
     border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    cursor: pointer;
+  }
+  
+  .recommendationHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  
+  .recommendationTitle {
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .recommendationDate {
+    font-size: 14px;
+    color: #888;
+    margin: 0;
+  }
+  
+  .recommendationDetails {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #555;
   }
   
   h3 {
