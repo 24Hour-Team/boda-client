@@ -15,6 +15,10 @@ const Bookmark = () => {
     try {
       const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/bookmark/${bookmarkId}/529acky@naver.com`);
       const data = await response.json();
+      if (!data || !data.name) {
+        navigate('/'); // Redirect to the home page
+        return;
+      }
       setBookmarkData(data);
 
       // Fetch images for each spot
@@ -30,7 +34,7 @@ const Bookmark = () => {
     } catch (error) {
       console.error('Failed to fetch bookmark data:', error);
     }
-  }, [bookmarkId]);
+  }, [bookmarkId, navigate]);
 
   useEffect(() => {
     fetchBookmarkData();

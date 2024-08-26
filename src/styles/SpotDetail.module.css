@@ -1,6 +1,6 @@
 .container {
   padding: 20px 150px;
-  background-color: #e6e6fa; /* 라벤더 색상 */
+  background-color: #e6e6fa;
 }
 
 .header {
@@ -57,46 +57,47 @@
   margin-top: 15px;
 }
 
-.buttonGroup {
+.dropdownContainer {
   display: flex;
-  flex-direction: column;
   gap: 10px;
 }
 
-.kakaoMapLink,
-.bookmarkButton {
+.dropdown {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.addButton {
   padding: 10px;
   border: none;
   border-radius: 5px;
+  background-color: #767676;
+  color: #ffffff;
   cursor: pointer;
-  font-size: 14px;
-  text-align: center;
-  flex: 1;
-  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.bookmarkButton {
+  padding: 10px;
+  border-radius: 5px;
+  color: #000000;
+  cursor: pointer;
+  /*transition: background-color 0.3s ease;*/
+  border: none;
+  background-color: #ccc;
 }
 
 .kakaoMapLink {
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #f8d347;
   color: #2c0036;
-}
-
-.bookmarkButton {
-  color: #e6e6fa;
-}
-
-.kakaoMapLink {
-  background-color: #f8d347; /* 노란색 배경 */
-}
-
-.kakaoMapLink:hover {
-  background-color: #f1c40f; /* 호버 시 색상 */
-}
-
-.bookmarkButton {
-  background-color: #4b0082; /* 네이비 블루 배경 */
-}
-
-.bookmarkButton:hover {
-  background-color: #2c0036; /* 호버 시 더 어두운 색상 */
+  text-align: center;
+  text-decoration: none;
 }
 
 .mapContainer {
@@ -112,44 +113,41 @@
   overflow: hidden;
 }
 
-/* 미디어 쿼리: 화면 너비가 1200px 이하일 때 */
 @media (max-width: 1200px) {
   .container {
-      padding: 20px 100px;
+    padding: 20px 100px;
   }
 }
 
-/* 미디어 쿼리: 화면 너비가 768px 이하일 때 */
 @media (max-width: 768px) {
   .container {
-      padding: 20px 50px;
+    padding: 20px 50px;
   }
 }
 
-/* 미디어 쿼리: 화면 너비가 480px 이하일 때 */
 @media (max-width: 480px) {
   .container {
-      padding: 10px 20px;
+    padding: 10px 20px;
   }
 
   .title {
-      font-size: 20px;
+    font-size: 20px;
   }
 
   .sidebar {
-      gap: 15px;
+    gap: 15px;
   }
 
   .spotName {
-      font-size: 20px;
+    font-size: 20px;
   }
 
   .spotAddress {
-      font-size: 14px;
+    font-size: 14px;
   }
 
   .bookmarkButton {
-      font-size: 12px;
-      padding: 8px;
+    font-size: 12px;
+    padding: 8px;
   }
 }

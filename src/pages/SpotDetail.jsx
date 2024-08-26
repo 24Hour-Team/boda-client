@@ -9,6 +9,8 @@ const SpotDetail = () => {
   const navigate = useNavigate();
   const [spot, setSpot] = useState(null);
   const [spotImage, setSpotImage] = useState('');
+  const [bookmarkFolders, setBookmarkFolders] = useState([]);
+  const [selectedFolder, setSelectedFolder] = useState('');
 
   useEffect(() => {
     const fetchSpotDetails = async () => {
@@ -44,8 +46,77 @@ const SpotDetail = () => {
       }
     };
 
+    const fetchBookmarkFolders = async () => {
+      try {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/bookmark/folder/list/529acky@naver.com`);
+        const data = await response.json();
+        setBookmarkFolders(data);
+      } catch (error) {
+        console.error('Error fetching bookmark folders:', error);
+      }
+    };
+
     fetchSpotDetails();
+    fetchBookmarkFolders();
   }, [spotId, navigate]);
+
+  const handleAddToBookmark = async () => {
+    if (!selectedFolder) {
+      alert('북마크 폴더를 선택해 주세요.');
+      return;
+    }
+
+    try {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/bookmark/${selectedFolder}/${spotId}/529acky@naver.com`);
+      if (response.ok) {
+        alert('여행지가 북마크에 추가되었습니다.');
+        navigate(`/spot/${spotId}`);
+      } else if (response.status === 400) {
+        const errorData = await response.json();
+        if (errorData.code === 'BOOKMARK_CREATION_LIMIT_EXCEEDED') {
+          alert('최대 20개의 여행지만 추가할 수 있습니다.');
+        } else {
+          alert('폴더 추가에 실패했습니다.');
+        }
+      }
+    } catch (error) {
+      console.error('Error adding to bookmark:', error);
+      alert('북마크 추가 중 오류가 발생했습니다.');
+    }
+  };
+
+  const handleAddBookmark = async () => {
+    const folderName = prompt("폴더 이름을 입력하세요. (20자 이내)");
+    if (folderName && folderName.length <= 20) {
+      try {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/bookmark/folder/529acky@naver.com`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ name: folderName })
+        });
+
+        if (response.ok) {
+          alert('폴더가 성공적으로 추가되었습니다.');
+          const newBookmark = await response.json();
+          setBookmarkFolders(prevFolders => [newBookmark, ...prevFolders]); // 새로운 폴더를 목록에 추가
+        } else if (response.status === 400) {
+          const errorData = await response.json();
+          if (errorData.code === 'BOOKMARK_FOLDER_CREATION_LIMIT_EXCEEDED') {
+            alert('최대 10개의 폴더만 생성할 수 있습니다.');
+          } else {
+            alert('폴더 추가에 실패했습니다.');
+          }
+        }
+      } catch (error) {
+        console.error('Failed to add bookmark:', error);
+        alert('폴더 추가 중 오류가 발생했습니다.');
+      }
+    } else if (folderName) {
+      alert('폴더 이름은 20자 이내만 가능합니다.');
+    }
+  };
 
   if (!spot) {
     return <div>Loading...</div>;
@@ -64,12 +135,29 @@ const SpotDetail = () => {
           <h2 className={styles.spotName}>{spot.name}</h2>
           <img src={spotImage || 'https://via.placeholder.com/400'} alt={spot.name} className={styles.spotImage} />
           <p className={styles.spotAddress}>{spot.address}</p>
-          <div className={styles.buttonGroup}>
-            <a href={mapUrl} target="_blank" rel="noopener noreferrer" className={styles.kakaoMapLink}>
-              카카오맵에서 보기
-            </a>
-            <button className={styles.bookmarkButton}>북마크 추가</button>
+          <div className={styles.dropdownContainer}>
+            <select
+              className={styles.dropdown}
+              value={selectedFolder}
+              onChange={(e) => setSelectedFolder(e.target.value)}
+            >
+              <option value="">폴더 선택</option>
+              {bookmarkFolders.map((folder) => (
+                <option key={folder.id} value={folder.id}>
+                  {folder.name}
+                </option>
+              ))}
+            </select>
+            <button className={styles.bookmarkButton} onClick={handleAddToBookmark}>
+              북마크 추가
+            </button>
+            <button className={styles.addButton} onClick={handleAddBookmark}>
+              폴더 생성
+            </button>
           </div>
+          <a href={mapUrl} target="_blank" rel="noopener noreferrer" className={styles.kakaoMapLink}>
+            카카오맵에서 보기
+          </a>
         </div>
         <div className={styles.mapContainer}>
           <div className={styles.mapWrapper}>
