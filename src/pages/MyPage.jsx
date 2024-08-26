@@ -83,11 +83,26 @@ const MyPage = () => {
     navigate(`/result/${id}`);
   };
 
-  const handleDelete = (id) => {
-    const confirmed = window.confirm("해당 북마크 폴더를 삭제하시겠습니까?");
+  const handleDelete = async (id) => {
+    const confirmed = window.confirm("해당 폴더를 삭제하시겠습니까?");
     if (confirmed) {
-      // 여기서 삭제 로직을 구현하세요.
-      console.log(`Deleting item with id: ${id}`);
+      try {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/bookmark/folder/${id}/529acky@naver.com`, {
+          method: 'DELETE',
+        });
+
+        if (response.ok) {
+          alert('폴더가 성공적으로 삭제되었습니다.');
+          // 북마크 목록을 다시 가져옵니다.
+          const updatedBookmarks = bookmarks.filter(bookmark => bookmark.id !== id);
+          setBookmarks(updatedBookmarks);
+        } else {
+          alert('폴더 삭제에 실패했습니다.');
+        }
+      } catch (error) {
+        console.error('Failed to delete bookmark:', error);
+        alert('폴더 삭제 중 오류가 발생했습니다.');
+      }
     }
   };
 
@@ -141,7 +156,6 @@ const MyPage = () => {
                   <img src={folder} alt="folder" className={styles.bookmarkImage} />
                   <div className={styles.bookmarkInfo}>
                     <h4>{bookmark.name}</h4>
-                    <div></div><div></div>
                     <p className={styles.date}>
                       {new Date(bookmark.createdDateTime).toLocaleDateString()}
                     </p>
@@ -178,7 +192,6 @@ const MyPage = () => {
                     {new Date(rec.createdDateTime).toLocaleDateString()}
                   </p>
                 </div>
-                <p></p>
                 <div className={styles.recommendationDetails}>
                   선택된 항목: {renderTravelStyles(rec)}
                 </div>
