@@ -28,7 +28,7 @@ const RegisterPage = () => {
       });
       if (response.ok) {
         console.log('추가 정보가 성공적으로 제출되었습니다.');
-        dispatch(loginSuccess());
+        //dispatch(loginSuccess());
         navigate('/');
       } else {
         console.error('추가 정보 제출에 실패했습니다.');

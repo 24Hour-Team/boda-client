@@ -16,23 +16,7 @@ const LoginPage = () => {
 
     //백엔드에서 제공하는 카카오 로그인 URL로 리다이렉트 
     window.location.href = `${backendUrl}/oauth2/authorization/kakao`;
-    //dispatch(loginSuccess(true));
-  };
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      navigate('/');
-    }
-  }, [isLoggedIn, navigate]);
-
-  const handleKakaoLogout = () => {
-    const BASE_URL = import.meta.env.VITE_BASE_URL;
-    window.location.href = `${BASE_URL}/v1/logout/kakao`;
-
-    // Redux 상태 업데이트 및 로그아웃 처리
-    dispatch(logout());
-    alert("로그아웃 되었습니다.");
-    navigate("/");
+    dispatch(loginSuccess());
   };
 
   return (
