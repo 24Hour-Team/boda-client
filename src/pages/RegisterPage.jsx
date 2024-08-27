@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import '../styles/RegisterPage.css';
+import styles from '../styles/RegisterPage.module.css';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { loginSuccess, logout } from "../features/auth/authSlice";
+import { loginSuccess } from "../features/auth/authSlice";
 
 const RegisterPage = () => {
   const [nickname, setNickname] = useState('');
@@ -11,7 +11,6 @@ const RegisterPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
-
 
   const handleSubmit = async (e) => {
     const backendUrl = process.env.REACT_APP_BACKEND_URL;
@@ -23,12 +22,11 @@ const RegisterPage = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        credentials: 'include', 
+        credentials: 'include',
         body: JSON.stringify({ nickname, gender, ageRange }),
       });
       if (response.ok) {
         console.log('추가 정보가 성공적으로 제출되었습니다.');
-        //dispatch(loginSuccess());
         navigate('/');
       } else {
         console.error('추가 정보 제출에 실패했습니다.');
@@ -51,33 +49,45 @@ const RegisterPage = () => {
     }
   }, [location, dispatch, navigate]);
 
+  const handleNicknameChange = (e) => {
+    const value = e.target.value;
+    if (value.length <= 20) {
+      setNickname(value);
+    }
+  };
+
   return (
-    <div className="background">
-      <div className="register-container">
-        <h1 className="main-title">
+    <div className={styles.background}>
+      <div className={styles.registerContainer}>
+        <h1 className={styles.mainTitle}>
           당신의 여행을
           <br />
-          <span className="boda-text">BODA</span> 완벽하게
+          <span className={styles.bodaText}>BODA</span> 완벽하게
         </h1>
 
-        <h1>회원가입</h1>
-        <p>계정 설정을 완료하려면 몇 가지 추가 정보를 입력하세요.</p>
+        <h1 className={styles.registerTitle}>회원가입</h1>
+        <p className={styles.registerDescription}>
+          계정 설정을 완료하려면 몇 가지 추가 정보를 입력하세요.
+        </p>
         <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="nickname">닉네임</label>
+          <div className={styles.formGroup}>
+            <label htmlFor="nickname" className={styles.label}>닉네임</label>
             <input
               type="text"
               id="nickname"
+              className={styles.inputField}
               value={nickname}
-              onChange={(e) => setNickname(e.target.value)}
+              onChange={handleNicknameChange}
+              maxLength="20"
               required
-              placeholder="닉네임을 입력하세요"
+              placeholder="닉네임을 입력하세요 (20자 이내)"
             />
           </div>
-          <div className="form-group">
-            <label htmlFor="gender">성별</label>
+          <div className={styles.formGroup}>
+            <label htmlFor="gender" className={styles.label}>성별</label>
             <select
               id="gender"
+              className={styles.selectField}
               value={gender}
               onChange={(e) => setGender(e.target.value)}
               required
@@ -87,10 +97,11 @@ const RegisterPage = () => {
               <option value="FEMALE">여성</option>
             </select>
           </div>
-          <div className="form-group">
-            <label htmlFor="ageRange">나이</label>
+          <div className={styles.formGroup}>
+            <label htmlFor="ageRange" className={styles.label}>나이</label>
             <select
               id="ageRange"
+              className={styles.selectField}
               value={ageRange}
               onChange={(e) => setAgeRange(e.target.value)}
               required
@@ -102,7 +113,7 @@ const RegisterPage = () => {
               <option value="FIFTIES">50대 이상</option>
             </select>
           </div>
-          <button type="submit">저장하기</button>
+          <button type="submit" className={styles.submitButton}>저장하기</button>
         </form>
       </div>
     </div>

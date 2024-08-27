@@ -13,7 +13,9 @@ const Bookmark = () => {
 
   const fetchBookmarkData = useCallback(async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/bookmark/${bookmarkId}/529acky@naver.com`);
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/bookmark/${bookmarkId}`, {
+        credentials: 'include',
+      });
       const data = await response.json();
       if (!data || !data.name) {
         navigate('/'); // Redirect to the home page
@@ -48,8 +50,9 @@ const Bookmark = () => {
     const confirmed = window.confirm("해당 여행지를 삭제하시겠습니까?");
     if (confirmed) {
       try {
-        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/bookmark/${spotId}/529acky@naver.com`, {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/bookmark/${spotId}`, {
           method: 'DELETE',
+          credentials: 'include',
         });
 
         if (response.ok) {

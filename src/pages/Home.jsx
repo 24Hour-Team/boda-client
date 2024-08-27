@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/Home.css';
+import styles from '../styles/Home.module.css';
 import background from '../assets/images/background.png';
 import { useNavigate } from 'react-router-dom';
 import TrendingDestination from '../components/TrendingDestination';
@@ -27,23 +27,23 @@ const Home = () => {
   
   return (
     <div>
-      <div className="main-container">
-        <div className="text-section">
+      <div className={styles.mainContainer}>
+        <div className={styles.textSection}>
           <h1>AI가 사용자 맞춤 여행지를 추천해 드려요</h1>
           <p>사용자의 성별, 연령대, 여행 지역, 여행 취향, 계절에 따른 <br /> 사용자 맞춤 여행지를 추천해 드려요</p>
           {isLoggedIn ? (
-          <button className="recommend-button" onClick={goToRecommendPage}>지금 추천받기</button>
+          <button className={styles.recommendButton} onClick={goToRecommendPage}>지금 추천받기</button>
           ) : (
-            <button className="recommend-button" onClick={goToLoginPage}>지금 추천받기</button>
+            <button className={styles.recommendButton} onClick={goToLoginPage}>지금 추천받기</button>
           )}
         </div>
-        <div className="image-section">
+        <div className={styles.imageSection}>
           <img src={background} alt="Travel Concept" />
         </div>
       </div>
-      <div className="trend-container">
-        <h1>최근 인기 여행지</h1>
-        <div className="destinations-grid">
+      <div className={styles.trendContainer}>
+        <h1 className={styles.mainTitle}>최근 인기 여행지</h1>
+        <div className={styles.destinationsGrid}>
           {destinations.map((dest, index) => (
             <TrendingDestination key={index} title={dest.title} description={dest.description} />
           ))}
@@ -54,4 +54,3 @@ const Home = () => {
 };
 
 export default Home;
-

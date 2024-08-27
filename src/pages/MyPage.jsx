@@ -54,7 +54,9 @@ const MyPage = () => {
   useEffect(() => {
     const fetchRecommendations = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/recommend/list/529acky@naver.com`);
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/recommend/list`, {
+          credentials: 'include'
+        });
         const data = await response.json();
 
         const sortedData = data.sort((a, b) => new Date(b.createdDateTime) - new Date(a.createdDateTime));
@@ -66,7 +68,9 @@ const MyPage = () => {
 
     const fetchBookmarks = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/bookmark/folder/list/529acky@naver.com`);
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/bookmark/folder/list`, {
+          credentials: 'include'
+        });
         const data = await response.json();
 
         const sortedBookmarks = data.sort((a, b) => new Date(b.createdDateTime) - new Date(a.createdDateTime));
@@ -92,8 +96,9 @@ const MyPage = () => {
     const confirmed = window.confirm("해당 폴더를 삭제하시겠습니까?");
     if (confirmed) {
       try {
-        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/bookmark/folder/${id}/529acky@naver.com`, {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/bookmark/folder/${id}`, {
           method: 'DELETE',
+          credentials: 'include'
         });
 
         if (response.ok) {
@@ -118,11 +123,12 @@ const MyPage = () => {
     const folderName = prompt("폴더 이름을 입력하세요. (20자 이내)");
     if (folderName && folderName.length <= 20) {
       try {
-        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/bookmark/folder/529acky@naver.com`, {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/bookmark/folder`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
+          credentials: 'include',
           body: JSON.stringify({ name: folderName })
         });
 
@@ -169,7 +175,7 @@ const MyPage = () => {
             </div>
             <div className={styles.profileSection}>
               <img
-                src="http://t1.kakaocdn.net/account_images/default_profile.jpeg.twg.thumb.R640x640"
+                src="http://img1.kakaocdn.net/thumb/R640x640.q70/?fname=http://t1.kakaocdn.net/account_images/default_profile.jpeg"
                 alt="profile"
                 className={styles.profileImage}
               />

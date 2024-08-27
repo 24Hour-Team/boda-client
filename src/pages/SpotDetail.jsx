@@ -15,7 +15,9 @@ const SpotDetail = () => {
   useEffect(() => {
     const fetchSpotDetails = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/spot/${spotId}`);
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/spot/${spotId}`, {
+          credentials: 'include', // 세션 쿠키 포함
+        });
         if (!response.ok) {
           throw new Error('Failed to fetch spot details');
         }
@@ -48,7 +50,9 @@ const SpotDetail = () => {
 
     const fetchBookmarkFolders = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/bookmark/folder/list/529acky@naver.com`);
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/bookmark/folder/list`, {
+          credentials: 'include', // 세션 쿠키 포함
+        });
         const data = await response.json();
         setBookmarkFolders(data);
       } catch (error) {
@@ -67,7 +71,9 @@ const SpotDetail = () => {
     }
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/bookmark/${selectedFolder}/${spotId}/529acky@naver.com`);
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/bookmark/${selectedFolder}/${spotId}`, {
+        credentials: 'include', // 세션 쿠키 포함
+      });
       if (response.ok) {
         alert('여행지가 북마크에 추가되었습니다.');
         navigate(`/spot/${spotId}`);
@@ -75,6 +81,8 @@ const SpotDetail = () => {
         const errorData = await response.json();
         if (errorData.code === 'BOOKMARK_CREATION_LIMIT_EXCEEDED') {
           alert('최대 20개의 여행지만 추가할 수 있습니다.');
+        } else if(errorData.code === 'BOOKMARK_ALREADY_EXISTS_IN_FOLDER'){
+          alert('해당 여행지가 이미 북마크에 존재합니다.');
         } else {
           alert('폴더 추가에 실패했습니다.');
         }
@@ -89,11 +97,12 @@ const SpotDetail = () => {
     const folderName = prompt("폴더 이름을 입력하세요. (20자 이내)");
     if (folderName && folderName.length <= 20) {
       try {
-        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/bookmark/folder/529acky@naver.com`, {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/bookmark/folder`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
+          credentials: 'include', // 세션 쿠키 포함
           body: JSON.stringify({ name: folderName })
         });
 
