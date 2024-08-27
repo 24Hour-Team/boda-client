@@ -42,7 +42,7 @@ const Home = () => {
         </div>
       </div>
       <div className={styles.trendContainer}>
-        <h1>최근 인기 여행지</h1>
+        <h1 className={styles.mainTitle}>최근 인기 여행지</h1>
         <div className={styles.destinationsGrid}>
           {destinations.map((dest, index) => (
             <TrendingDestination key={index} title={dest.title} description={dest.description} />

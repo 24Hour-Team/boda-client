@@ -64,6 +64,12 @@
   gap: 16px;
 }
 
+.mainTitle {
+  font-size: 28px;
+  color: rgba(0, 0, 0, 0.7);
+  text-align: center;
+}
+
 /* 반응형 디자인을 위한 Media Queries */
 @media (max-width: 1200px) {
   .textSection {

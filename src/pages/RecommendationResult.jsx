@@ -15,7 +15,9 @@ const RecommendationResult = () => {
   useEffect(() => {
     const fetchRecommendations = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/recommend/${resultId}/529acky@naver.com`);
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/recommend/${resultId}`, {
+          credentials: 'include', // 세션 쿠키 포함
+        });
         const data = await response.json();
 
         if (!data || !data.spotResponses || data.spotResponses.length === 0) {

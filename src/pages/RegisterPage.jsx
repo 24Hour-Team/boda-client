@@ -22,7 +22,7 @@ const RegisterPage = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        credentials: 'include', 
+        credentials: 'include',
         body: JSON.stringify({ nickname, gender, ageRange }),
       });
       if (response.ok) {
@@ -49,6 +49,13 @@ const RegisterPage = () => {
     }
   }, [location, dispatch, navigate]);
 
+  const handleNicknameChange = (e) => {
+    const value = e.target.value;
+    if (value.length <= 20) {
+      setNickname(value);
+    }
+  };
+
   return (
     <div className={styles.background}>
       <div className={styles.registerContainer}>
@@ -70,9 +77,10 @@ const RegisterPage = () => {
               id="nickname"
               className={styles.inputField}
               value={nickname}
-              onChange={(e) => setNickname(e.target.value)}
+              onChange={handleNicknameChange}
+              maxLength="20"
               required
-              placeholder="닉네임을 입력하세요"
+              placeholder="닉네임을 입력하세요 (20자 이내)"
             />
           </div>
           <div className={styles.formGroup}>
