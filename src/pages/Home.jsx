@@ -41,12 +41,25 @@ const Home = () => {
           <img src={background} alt="Travel Concept" />
         </div>
       </div>
+      <div className={styles.bottomContainer}>
+        <h1 className={styles.searchTitle}>여러 국내 여행지를 검색하고, 저장해보세요</h1>
+      <div className={styles.searchContainer}>
+        <input
+          type="text"
+          className={styles.searchInput}
+          placeholder="직접 여행지를 검색해보세요"
+        />
+        <button className={styles.searchButton}>
+          <span role="img" aria-label="search icon">🔍</span>
+        </button>
+      </div>
       <div className={styles.trendContainer}>
         <h1 className={styles.mainTitle}>최근 인기 여행지</h1>
         <div className={styles.destinationsGrid}>
           {destinations.map((dest, index) => (
             <TrendingDestination key={index} title={dest.title} description={dest.description} />
           ))}
+        </div>
         </div>
       </div>
     </div>

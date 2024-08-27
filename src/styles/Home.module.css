@@ -53,22 +53,74 @@
   object-fit: contain;
 }
 
-.trendContainer {
-  padding: 24px;
+.bottomContainer {
+  padding-top: 30px;
+  padding-bottom: 50px;
+  padding-left: 12%;
+  padding-right: 12%;
   background-color: #f3f4f6;
+  box-sizing: border-box;
 }
 
 .destinationsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 16px;
 }
 
 .mainTitle {
-  font-size: 28px;
-  color: rgba(0, 0, 0, 0.7);
-  text-align: center;
+  font-size: 25px;
+  color: rgb(0, 0, 0);
+  text-align: left;
+  margin: 20px;
+  margin-top: 60px;
+  font-weight: 400;
 }
+
+.searchTitle {
+  font-size: 25px;
+  font-weight: 400;
+  text-align: center;
+  margin: 30px;
+}
+
+.searchContainer {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  padding: 5px 10px;
+  box-sizing: border-box;
+}
+
+.searchInput {
+  flex-grow: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 16px;
+  padding: 10px;
+}
+
+.searchInput::placeholder {
+  color: #aaa;
+}
+
+.searchButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  font-size: 18px;
+}
+
+.searchButton:hover {
+  opacity: 0.7;
+}
+
 
 /* 반응형 디자인을 위한 Media Queries */
 @media (max-width: 1200px) {
@@ -76,17 +128,26 @@
     padding-left: 180px;
     padding-top: 100px;
   }
-  
+
   .imageSection {
     padding-right: 180px;
   }
-  
+
   .textSection h1 {
     font-size: 1.8rem;
   }
-  
+
   .textSection p {
     font-size: 1rem;
+  }
+
+  .bottomContainer {
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+
+  .searchContainer {
+    max-width: 700px;
   }
 }
 
@@ -95,22 +156,31 @@
     padding-left: 80px;
     padding-top: 80px;
   }
-  
+
   .imageSection {
     padding-right: 80px;
   }
-  
+
   .textSection h1 {
     font-size: 1.5rem;
   }
-  
+
   .textSection p {
     font-size: 0.9rem;
   }
-  
+
   .recommendButton {
     font-size: 0.9rem;
     padding: 8px 16px;
+  }
+
+  .bottomContainer {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+
+  .searchContainer {
+    max-width: 600px;
   }
 }
 
@@ -119,28 +189,37 @@
     flex-direction: column;
     padding: 20px;
   }
-  
+
   .textSection {
     padding-left: 0;
     padding-top: 50px;
     text-align: center;
   }
-  
+
   .imageSection {
     padding-right: 0;
     margin-top: 20px;
   }
-  
+
   .textSection h1 {
     font-size: 1.2rem;
   }
-  
+
   .textSection p {
     font-size: 0.8rem;
   }
-  
+
   .recommendButton {
     font-size: 0.8rem;
     padding: 6px 12px;
+  }
+
+  .bottomContainer {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+
+  .searchContainer {
+    max-width: 100%;
   }
 }
