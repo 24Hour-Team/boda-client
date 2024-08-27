@@ -1,9 +1,9 @@
 import React from 'react';
-import '../styles/TrendingDestination.css';
+import styles from '../styles/TrendingDestination.module.css';
 
 const TrendingDestination = ({ title, description }) => (
-  <div className="destination">
-    <div className="image-placeholder"></div>
+  <div className={styles.destination}>
+    <div className={styles.imagePlaceholder}></div>
     <h3>{title}</h3>
     <p>{description}</p>
   </div>

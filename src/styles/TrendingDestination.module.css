@@ -1,0 +1,33 @@
+.destination {
+  background-color: white;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.imagePlaceholder {
+  background-color: #e5e7eb;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  border-radius: 4px;
+}
+
+.imagePlaceholder::before {
+  content: '📷';
+  font-size: 48px;
+  color: #9ca3af;
+}
+
+.destination h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.destination p {
+  font-size: 14px;
+  color: #4b5563;
+}

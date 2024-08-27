@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../styles/NavBar.css';
+import styles from '../styles/NavBar.module.css'; // CSS Module로 변경
 import logo from '../assets/images/boda.png';
-import { useDispatch } from 'react-redux';
-import { loginSuccess, logout } from "../features/auth/authSlice";
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from "../features/auth/authSlice";
 import { getUserInfo } from "../services/userService";
-import { useSelector } from 'react-redux';
 
 const NavBar = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -25,7 +24,7 @@ const NavBar = () => {
     const backendUrl = process.env.REACT_APP_BACKEND_URL;
     window.location.href = `${backendUrl}/logout`;
     dispatch(logout());
-    navigate("/")
+    navigate("/");
   };
 
   const goToLoginPage = () => {
@@ -36,7 +35,6 @@ const NavBar = () => {
     navigate('/mypage');
   };
 
-
   useEffect(() => {
     if (!isLoggedIn) {
       navigate("/");
@@ -46,7 +44,11 @@ const NavBar = () => {
       try {
         const userData = await getUserInfo();
         setUser(userData);
-        console.info(userData)
+        if(!userData || !userData.nickname){
+          dispatch(logout());
+          return;
+        }
+        console.info(userData);
       } catch (err) {
         setError("사용자 정보를 가져오는 중 오류가 발생했습니다.");
       } finally {
@@ -57,34 +59,30 @@ const NavBar = () => {
     fetchUserData();
   }, [isLoggedIn, navigate]);
 
-  
-
   return (
     <div>
-    <div className="navbar">
-      <div className="leftSection" onClick={goToMain}>
-        <img src={logo} alt="BODA logo" className="logo" />
-        <span className="serviceName">BODA</span>
-      </div>
-      {isLoggedIn && user ? (
-      <div className="rightSection">
-        <div className="profileSection" onClick={goToMyPage}>
-          <img src="http://t1.kakaocdn.net/account_images/default_profile.jpeg.twg.thumb.R640x640" alt="Profile" className="profileImage" /> {/* profileImageUrl 사용 */}
-          <span className="userName">{user.nickname}</span>
+      <div className={styles.navbar}>
+        <div className={styles.leftSection} onClick={goToMain}>
+          <img src={logo} alt="BODA logo" className={styles.logo} />
+          <span className={styles.serviceName}>BODA</span>
         </div>
-        <span className="logoutText" onClick={handleLogout}>LOGOUT</span>
-      </div> 
-      ):(
-      <div className="rightSection">
-        <span className="logoutText" onClick={goToLoginPage}>LOGIN</span> 
-      </div> 
-      )}
-
-      <div className="separator" />
+        {isLoggedIn && user ? (
+          <div className={styles.rightSection}>
+            <div className={styles.profileSection} onClick={goToMyPage}>
+              <img src={user.profileImageUrl} alt="Profile" className={styles.profileImage} /> 
+              <span className={styles.userName}>{user.nickname}</span>
+            </div>
+            <span className={styles.logoutText} onClick={handleLogout}>LOGOUT</span>
+          </div>
+        ) : (
+          <div className={styles.rightSection}>
+            <span className={styles.logoutText} onClick={goToLoginPage}>LOGIN</span>
+          </div>
+        )}
+        <div className={styles.separator} />
+      </div>
+      <div className={styles.bodyContent} />
     </div>
-    <div className="body-content">
-  </div>
-  </div>
   );
 };
 
