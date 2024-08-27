@@ -1,0 +1,153 @@
+.container {
+  padding: 20px 150px;
+  background-color: #e6e6fa;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 24px;
+  color: #333;
+  margin: 0;
+}
+
+.divider {
+  margin: 10px 0;
+  border: none;
+  border-top: 1px solid #ccc;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+}
+
+.sidebar {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  margin-top: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  height: 100%;
+}
+
+.spotName {
+  font-size: 22px;
+  color: #333;
+}
+
+.spotImage {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.spotAddress {
+  font-size: 16px;
+  color: #555;
+  margin-top: 15px;
+}
+
+.dropdownContainer {
+  display: flex;
+  gap: 10px;
+}
+
+.dropdown {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.addButton {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #767676;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.bookmarkButton {
+  padding: 10px;
+  border-radius: 5px;
+  color: #000000;
+  cursor: pointer;
+  /*transition: background-color 0.3s ease;*/
+  border: none;
+  background-color: #ccc;
+}
+
+.kakaoMapLink {
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #f8d347;
+  color: #2c0036;
+  text-align: center;
+  text-decoration: none;
+}
+
+.mapContainer {
+  flex: 2;
+  padding: 20px;
+  height: 800px;
+}
+
+.mapWrapper {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+@media (max-width: 1200px) {
+  .container {
+    padding: 20px 100px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 20px 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 10px 20px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .sidebar {
+    gap: 15px;
+  }
+
+  .spotName {
+    font-size: 20px;
+  }
+
+  .spotAddress {
+    font-size: 14px;
+  }
+
+  .bookmarkButton {
+    font-size: 12px;
+    padding: 8px;
+  }
+}

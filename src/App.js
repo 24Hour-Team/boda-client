@@ -5,6 +5,9 @@ import Home from './pages/Home';
 import TravelRecommendation from "./pages/TravelRecommendation";
 import RecommendationResult from "./pages/RecommendationResult";
 import SpotDetail from "./pages/SpotDetail";
+import MyPage from "./pages/MyPage";
+import UserInfo from "./pages/UserInfo";
+import Bookmark from "./pages/Bookmark";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import { useEffect } from 'react';
@@ -32,7 +35,10 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/recommend" element={<Layout><TravelRecommendation /></Layout>} />
         <Route path="/result/:resultId" element={<Layout><RecommendationResult /></Layout>} />
-        <Route path="/spot/:spotId" element={<Layout><SpotDetail /></Layout>} />     
+        <Route path="/spot/:spotId" element={<Layout><SpotDetail /></Layout>} /> 
+        <Route path="/mypage" element={<Layout><MyPage /></Layout>} /> 
+        <Route path="/userinfo" element={<Layout><UserInfo /></Layout>} />
+        <Route path="/bookmark/:bookmarkId" element={<Layout><Bookmark /></Layout>} /> 
       </Routes>
     </Router>
   );

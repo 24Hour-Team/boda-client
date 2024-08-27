@@ -1,0 +1,21 @@
+.myPageContainer {
+    padding: 20px 150px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-color: #e6e6fa;
+    min-height: 700px;
+}
+
+.pageTitle {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.horizontalLine {
+    width: 100%;
+    height: 1px;
+    background-color: #ccc;
+    margin-bottom: 10px;
+}

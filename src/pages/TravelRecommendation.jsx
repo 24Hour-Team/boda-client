@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/TravelRecommendation.css';
+import styles from '../styles/TravelRecommendation.module.css';
 import { useNavigate } from 'react-router-dom';
 import { requestRecommendations, getSeasonCode, getRegionCode } from '../services/recommendRequest';
 
@@ -26,7 +26,7 @@ const TravelRecommendation = () => {
   const [selectedRegion, setSelectedRegion] = useState('');
   const [selectedPreferences, setSelectedPreferences] = useState(Array(preferences.length).fill(''));
   const [selectedSeason, setSelectedSeason] = useState('');
-  const [loading, setLoading] = useState(false); // 로딩 상태 추가
+  const [loading, setLoading] = useState(false);
 
   const handleRegionClick = (region) => {
     setSelectedRegion(region);
@@ -46,7 +46,7 @@ const TravelRecommendation = () => {
 
   const handleNextClick = async () => {
     if (isNextEnabled) {
-      setLoading(true); // 로딩 시작
+      setLoading(true);
       try {
         const requestData = {
           season: getSeasonCode(selectedSeason),
@@ -69,22 +69,22 @@ const TravelRecommendation = () => {
       } catch (err) {
         console.error('Error fetching recommendations:', err);
       } finally {
-        setLoading(false); // 로딩 종료
+        setLoading(false);
       }
     }
   };
 
   return (
-    <div className="travel-recommendation">
-      <h1>AI가 맞춤 여행지를 추천해 드려요</h1>
+    <div className={styles.travelRecommendation}>
+      <h1 className={styles.title}>AI가 맞춤 여행지를 추천해 드려요</h1>
 
-      <div className="section">
-        <h2>지역을 선택해 주세요</h2>
-        <div className="options">
+      <div className={styles.section}>
+        <h2 className={styles.sectionTitle}>지역을 선택해 주세요</h2>
+        <div className={styles.options}>
           {regions.map((region) => (
             <button
               key={region}
-              className={`option ${selectedRegion === region ? 'selected' : ''}`}
+              className={`${styles.option} ${selectedRegion === region ? styles.optionSelected : ''}`}
               onClick={() => handleRegionClick(region)}
             >
               {region}
@@ -93,21 +93,21 @@ const TravelRecommendation = () => {
         </div>
       </div>
 
-      <div className="section-divider"></div>
+      <div className={styles.sectionDivider}></div>
 
-      <div className="section">
-        <h2>여행 취향을 선택해 주세요</h2>
+      <div className={styles.section}>
+        <h2 className={styles.sectionTitle}>여행 취향을 선택해 주세요</h2>
         {preferences.map((pref, index) => (
-          <div key={index} className="preference">
+          <div key={index} className={styles.preference}>
             <button
-              className={`option ${selectedPreferences[index] === 'left' ? 'selected' : ''}`}
+              className={`${styles.option2} ${styles.preferenceButton} ${selectedPreferences[index] === 'left' ? styles.optionSelected : ''}`}
               onClick={() => handlePreferenceClick(index, 'left')}
             >
               {pref.left}
             </button>
-            <span>vs</span>
+            <span className={styles.preferenceSpan}>vs</span>
             <button
-              className={`option ${selectedPreferences[index] === 'right' ? 'selected' : ''}`}
+              className={`${styles.option2} ${styles.preferenceButton} ${selectedPreferences[index] === 'right' ? styles.optionSelected : ''}`}
               onClick={() => handlePreferenceClick(index, 'right')}
             >
               {pref.right}
@@ -116,15 +116,15 @@ const TravelRecommendation = () => {
         ))}
       </div>
 
-      <div className="section-divider"></div>
+      <div className={styles.sectionDivider}></div>
 
-      <div className="section">
-        <h2>계절을 선택해 주세요</h2>
-        <div className="options">
+      <div className={styles.section}>
+        <h2 className={styles.sectionTitle}>계절을 선택해 주세요</h2>
+        <div className={styles.options}>
           {seasons.map((season) => (
             <button
               key={season}
-              className={`option ${selectedSeason === season ? 'selected' : ''}`}
+              className={`${styles.option} ${selectedSeason === season ? styles.optionSelected : ''}`}
               onClick={() => handleSeasonClick(season)}
             >
               {season}
@@ -133,13 +133,13 @@ const TravelRecommendation = () => {
         </div>
       </div>
 
-      <div className="next-button-container">
+      <div className={styles.nextButtonContainer}>
         <button
-          className={`next-button ${isNextEnabled ? 'enabled' : 'disabled'}`}
+          className={`${styles.nextButton} ${isNextEnabled ? styles.nextButtonEnabled : styles.nextButtonDisabled}`}
           onClick={handleNextClick}
           disabled={!isNextEnabled}
         >
-          {loading ? '로딩 중...' : '다음'} {/* 로딩 중이면 텍스트 변경 */}
+          {loading ? '로딩 중...' : '다음'}
         </button>
       </div>
     </div>

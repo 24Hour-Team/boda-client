@@ -1,0 +1,266 @@
+/* MyPage.module.css */
+.myPageContainer {
+    padding: 20px 150px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-color: #e6e6fa;
+    min-height: 700px;
+}
+
+.pageTitle {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.horizontalLine {
+    width: 100%;
+    height: 1px;
+    background-color: #ccc;
+    margin-bottom: 10px;
+}
+
+.contentContainer {
+    display: flex;
+    gap: 20px;
+}
+
+.leftSection {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 1;
+}
+
+.userInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #f0f0f0;
+    padding: 15px;
+    border-radius: 10px;
+    height: auto;
+    min-height: 150px;
+}
+
+.profileSection {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.profileImage {
+    width: 120px;
+    height: 120px;
+    background-color: #ccc;
+    border-radius: 60px;
+}
+
+.userDetails {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    text-align: right;
+    flex: 1;
+}
+
+.nickname {
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 15px;
+    align-self: flex-start;
+}
+
+.additionalInfo {
+    flex-direction: column;
+}
+
+.bookmarkSection {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 540px;
+}
+
+.bookmarkHeader, .userHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.bookmarkTitleContainer, .recommendationTitleContainer, .userTitleContainer {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.infoIcon {
+    width: 15px;
+    height: 15px;
+    margin-left: 8px;
+    cursor: pointer;
+}
+
+.tooltip {
+    display: none;
+    position: absolute;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 100;
+}
+
+.infoIcon:hover + .tooltip {
+    display: block;
+}
+
+.addButton {
+    padding: 8px 15px;
+    background-color: #aaa;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.bookmarkList {
+    max-height: 540px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.bookmarkItem {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 10px;
+    position: relative;
+    cursor: pointer;
+}
+
+.bookmarkImage {
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+}
+
+.bookmarkInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex: 1;
+}
+
+.deleteButton {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 15px;
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+}
+
+.emptyMessage {
+    font-size: 14px;
+    color: #888;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.recommendationSection {
+    flex: 1;
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-height: 800px;
+}
+
+.recommendationHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.recommendationList {
+    max-height: 800px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.recommendationItem {
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.recommendationTitle {
+    font-weight: bold;
+    margin: 0;
+}
+
+.date {
+    font-size: 14px;
+    color: #888;
+    margin: 0;
+}
+
+.recommendationDetails {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #555;
+}
+
+h3 {
+    margin: 0;
+}
+
+h4 {
+    margin: 0;
+}
+
+/* 미디어 쿼리 */
+@media (max-width: 1200px) {
+    .myPageContainer {
+      padding: 20px 100px;
+    }
+}
+
+@media (max-width: 800px) {
+    .myPageContainer {
+      padding: 20px 50px;
+    }
+}
+
+@media (max-width: 600px) {
+    .myPageContainer {
+      padding: 20px 20px;
+    }
+}
