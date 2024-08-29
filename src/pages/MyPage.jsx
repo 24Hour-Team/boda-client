@@ -242,8 +242,8 @@ const MyPage = () => {
               <div className={styles.userDetails}>
                 <h2 className={styles.nickname}>{userData.nickname}</h2>
                 <div className={styles.additionalInfo}>
-                  <p>{ageRangeMap[userData.ageRange] || userData.ageRange} {userData.gender === 'MALE' ? '남성' : '여성'}</p>
-                  {/* <p>{userData.email}</p> */}
+                  <p>{ageRangeMap[userData.ageRange] || userData.ageRange}</p>
+                  <p>{userData.gender === 'MALE' ? '남성' : '여성'}</p>
                 </div>
               </div>
             </div>
