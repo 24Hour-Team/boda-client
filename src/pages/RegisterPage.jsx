@@ -107,7 +107,7 @@ const RegisterPage = () => {
               required
             >
               <option value="">나이 선택</option>
-              <option value="TWENTIES">20대 이하</option>
+              <option value="TWENTIES">20대</option>
               <option value="THIRTIES">30대</option>
               <option value="FORTIES">40대</option>
               <option value="FIFTIES">50대 이상</option>
