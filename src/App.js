@@ -13,6 +13,7 @@ import RegisterPage from "./pages/RegisterPage";
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from './features/auth/authSlice';
+import SearchSpot from "./pages/SearchSpot";
 
 function App() {
   const dispatch = useDispatch();
@@ -38,7 +39,8 @@ function App() {
         <Route path="/spot/:spotId" element={<Layout><SpotDetail /></Layout>} /> 
         <Route path="/mypage" element={<Layout><MyPage /></Layout>} /> 
         <Route path="/userinfo" element={<Layout><UserInfo /></Layout>} />
-        <Route path="/bookmark/:bookmarkId" element={<Layout><Bookmark /></Layout>} /> 
+        <Route path="/bookmark/:bookmarkId" element={<Layout><Bookmark /></Layout>} />
+        <Route path="/search" element={<Layout><SearchSpot /></Layout>} />  
       </Routes>
     </Router>
   );

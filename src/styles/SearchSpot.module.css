@@ -1,0 +1,147 @@
+.mainContainer {
+    background-color: #e6e6fa;
+    min-height: 700px;
+    padding-top: 30px;
+    padding-bottom: 50px;
+    padding-left: 12%;
+    padding-right: 12%;
+    text-align: center; /* 메시지를 중앙 정렬하기 위해 추가 */
+  }
+  
+  .searchTitle {
+    font-size: 25px;
+    font-weight: 400;
+    margin: 30px;
+    color: #555; /* 진한 회색으로 변경 */
+  }
+  
+  .searchContainer {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    padding: 5px 10px;
+    box-sizing: border-box;
+  }
+  
+  .searchInput {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 16px;
+    padding: 10px;
+  }
+  
+  .searchInput::placeholder {
+    color: #aaa;
+  }
+  
+  .searchButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 18px;
+  }
+  
+  .searchButton:hover {
+    opacity: 0.7;
+  }
+  
+  .resultsContainer {
+    background-color: #f0f0f0; /* 회색 배경 */
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 840px;
+    margin: 0 auto;
+  }
+  
+  .spotsList {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .spotItem {
+    padding: 15px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 800px; /* 최대 너비 설정 */
+    margin: 0 auto; /* 중앙 정렬 */
+  }
+  
+  .spotItem:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .spotItem h3 {
+    font-weight: 400; /* 여행지 이름의 두께 설정 */
+  }
+  
+  .spotItem p {
+    color: #555; /* 진한 회색 */
+    font-size: 14px; /* 글씨 크기 조금 줄이기 */
+    margin-top: 40px;
+    margin-bottom: 0px;
+  }
+  
+  /* 메시지 스타일링 */
+  .message {
+    color: #555; /* 진한 회색 */
+    text-align: center; /* 중앙 정렬 */
+    margin: 20px;
+  }
+  
+  /* 반응형 디자인을 위한 Media Queries */
+  @media (max-width: 1200px) {
+    .mainContainer {
+      padding-left: 10%;
+      padding-right: 10%;
+    }
+  
+    .searchContainer {
+      max-width: 700px;
+    }
+  
+    .spotItem {
+      max-width: 700px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .mainContainer {
+      padding-left: 5%;
+      padding-right: 5%;
+    }
+  
+    .searchContainer {
+      max-width: 600px;
+    }
+  
+    .spotItem {
+      max-width: 600px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .mainContainer {
+      padding-left: 5%;
+      padding-right: 5%;
+    }
+  
+    .searchContainer {
+      max-width: 100%;
+    }
+  
+    .spotItem {
+      max-width: 100%;
+    }
+  }
+  
