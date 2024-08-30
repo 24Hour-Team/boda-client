@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import styles from '../styles/MyPage.module.css';
 import folder from '../assets/images/folder.png';
 import infoIcon from '../assets/images/info.png'; // 정보 아이콘 이미지
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 const regionMap = {
   SEOUL: '서울',
@@ -50,6 +52,64 @@ const MyPage = () => {
   const [recommendations, setRecommendations] = useState([]);
   const [bookmarks, setBookmarks] = useState([]);
   const navigate = useNavigate();
+
+
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+  const user = useSelector((state) => state.auth.user);
+
+  const ageRangeMap = {
+    TWENTIES: '20대',
+    THIRTIES: '30대',
+    FORTIES: '40대',
+    FIFTIES: '50대 이상'
+  };
+
+  const [userData, setUserData] = useState({
+    nickname: '',
+    gender: '',
+    ageRange: ''
+  });
+
+  const [isEditing, setIsEditing] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (user) {
+      setUserData({
+        nickname: user.nickname || '',
+        gender: user.gender || '',
+        ageRange: user.ageRange || ''
+      });
+    } else {
+      fetchUserData();
+    }
+  }, [user]);
+
+  const fetchUserData = async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const response = await fetch(`${backendUrl}/api/v1/user`, {
+        method: 'GET',
+        credentials: 'include'
+      });
+      if (!response.ok) {
+        throw new Error('Failed to fetch user data');
+      }
+      const data = await response.json();
+      setUserData({
+        nickname: data.nickname || '',
+        gender: data.gender || '',
+        ageRange: data.ageRange || ''
+      });
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+      setError('사용자 정보를 불러오는데 실패했습니다. 다시 시도해 주세요.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
     const fetchRecommendations = async () => {
@@ -180,10 +240,10 @@ const MyPage = () => {
                 className={styles.profileImage}
               />
               <div className={styles.userDetails}>
-                <h2 className={styles.nickname}>은학</h2>
+                <h2 className={styles.nickname}>{userData.nickname}</h2>
                 <div className={styles.additionalInfo}>
-                  <p>20대 남성</p>
-                  <p>529acky@naver.com</p>
+                  <p>{ageRangeMap[userData.ageRange] || userData.ageRange}</p>
+                  <p>{userData.gender === 'MALE' ? '남성' : '여성'}</p>
                 </div>
               </div>
             </div>

@@ -1,21 +1,100 @@
-.myPageContainer {
-    padding: 20px 150px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    background-color: #e6e6fa;
-    min-height: 700px;
-}
 
-.pageTitle {
+.myPageContainer {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 40px;
+  }
+  
+  .pageTitle {
     font-size: 24px;
     font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.horizontalLine {
+    margin-bottom: 20px;
+  }
+  
+  .horizontalLine {
+    border-top: 1px solid #e0e0e0;
+    margin-bottom: 20px;
+  }
+  
+  .userInfoContainer {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .profileImageContainer {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 20px;
+    position: relative;
+  }
+  
+  .profileImage {
     width: 100%;
-    height: 1px;
-    background-color: #ccc;
-    margin-bottom: 10px;
-}
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+    border: 3px solid #ffffff;
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+  }
+  
+  .profileImage img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .infoFields {
+    margin-bottom: 20px;
+  }
+  
+  .infoField {
+    margin-bottom: 15px;
+  }
+  
+  .infoField label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .infoField input,
+  .infoField select {
+    width: 97%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .actionButtons {
+    text-align: center;
+  }
+  
+  .saveButton {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .saveButton:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  .errorMessage {
+    color: red;
+    margin-top: 10px;
+  }
