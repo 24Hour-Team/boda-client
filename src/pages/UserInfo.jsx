@@ -18,7 +18,8 @@ const UserInfo = () => {
   const [userData, setUserData] = useState({
     nickname: '',
     gender: '',
-    ageRange: ''
+    ageRange: '',
+    email: ''
   });
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
