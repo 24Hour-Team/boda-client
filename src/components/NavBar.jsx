@@ -22,9 +22,10 @@ const NavBar = () => {
   const handleLogout = () => {
     console.log('로그아웃');
     const backendUrl = process.env.REACT_APP_BACKEND_URL;
+    dispatch(logout()); // 상태 정리
+    localStorage.removeItem('authState'); // 로컬 스토리지에서 상태 제거
     window.location.href = `${backendUrl}/logout`;
-    dispatch(logout());
-    navigate("/");
+    navigate('/');
   };
 
   const goToLoginPage = () => {
@@ -58,6 +59,25 @@ const NavBar = () => {
 
     fetchUserData();
   }, [isLoggedIn, navigate]);
+
+  useEffect(() => {
+    const checkSessionStatus = async () => {
+      try {
+        const userData = await getUserInfo(); // 세션 확인을 위한 API 호출
+        if (!userData || !userData.nickname) {
+          dispatch(logout());
+        } else {
+          setUser(userData);
+        }
+      } catch (error) {
+        dispatch(logout()); // API 호출 실패 시 로그아웃 처리
+      }
+    };
+  
+    const intervalId = setInterval(checkSessionStatus, 5 * 60 * 1000); // 5분마다 세션 확인
+  
+    return () => clearInterval(intervalId); // 컴포넌트 언마운트 시 정리
+  }, [dispatch]);  
 
   return (
     <div>

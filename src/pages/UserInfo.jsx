@@ -18,8 +18,7 @@ const UserInfo = () => {
   const [userData, setUserData] = useState({
     nickname: '',
     gender: '',
-    ageRange: '',
-    email: ''
+    ageRange: ''
   });
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -136,6 +135,7 @@ const UserInfo = () => {
                 name="nickname"
                 value={userData.nickname} 
                 onChange={handleChange} 
+                maxLength="20"
               />
             ) : (
               <span>{userData.nickname}</span>
