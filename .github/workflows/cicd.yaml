@@ -40,7 +40,7 @@ jobs:
       - name: Build frontend
         run: npm run build
         env:
-          CI: true
+          CI: false
 
       # 빌드 워크플로우 종료 알림
       - name: Send result to discord
