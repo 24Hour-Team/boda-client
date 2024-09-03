@@ -58,6 +58,9 @@ jobs:
     if: github.ref == 'refs/heads/CICD' && github.event_name == 'push'
 
     steps:
+      - name: show dir
+        run: pwd
+          
       - name: Deploy to S3
         uses: jakejarvis/s3-sync-action@master
         with:
