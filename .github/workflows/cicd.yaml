@@ -71,7 +71,7 @@ jobs:
           path: build
 
       - name: show structure
-        run: ls -al
+        run: ls -R
 
       - name: Deploy to S3
         uses: jakejarvis/s3-sync-action@master
