@@ -42,6 +42,12 @@ jobs:
         env:
           CI: false
 
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: boda-client
+          path: build
+
       # 빌드 워크플로우 종료 알림
       - name: Send result to discord
         uses: th0th/notify-discord@v0.4.1
@@ -58,7 +64,13 @@ jobs:
     if: github.ref == 'refs/heads/CICD' && github.event_name == 'push'
 
     steps:
-      - name: show dir
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: boda-client
+          path: build
+
+      - name: show structure
         run: ls -al
 
       - name: Deploy to S3
