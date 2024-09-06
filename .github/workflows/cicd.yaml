@@ -41,7 +41,8 @@ jobs:
         run: npm run build
         env:
           CI: false
-
+      
+      # 아티팩트에 빌드 결과 업로드
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
@@ -61,18 +62,18 @@ jobs:
   deployment:
     needs: build
     runs-on: ubuntu-latest
+    # CICD 브랜치에 push가 된 경우에만 CD 실행
     if: github.ref == 'refs/heads/CICD' && github.event_name == 'push'
 
     steps:
+      # 아티팩트에서 빌드 결과물 다운로드
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
           name: boda-client
           path: build
 
-      - name: show structure
-        run: ls -R
-
+      # S3에 배포
       - name: Deploy to S3
         uses: jakejarvis/s3-sync-action@master
         env:
