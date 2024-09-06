@@ -73,7 +73,7 @@ jobs:
           name: boda-client
           path: build
 
-      # S3에 배포
+      # S3에 정적 웹사이트 호스팅
       - name: Deploy to S3
         uses: jakejarvis/s3-sync-action@master
         env:
