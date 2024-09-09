@@ -5,20 +5,17 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.imagePlaceholder {
-  background-color: #e5e7eb;
+.imageContainer {
   height: 160px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   margin-bottom: 16px;
   border-radius: 4px;
+  overflow: hidden;
 }
 
-.imagePlaceholder::before {
-  content: '📷';
-  font-size: 48px;
-  color: #9ca3af;
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .destination h3 {
