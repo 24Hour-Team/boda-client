@@ -67,7 +67,8 @@ const MyPage = () => {
   const [userData, setUserData] = useState({
     nickname: '',
     gender: '',
-    ageRange: ''
+    ageRange: '',
+    email: ''
   });
 
   const [isEditing, setIsEditing] = useState(false);
@@ -79,7 +80,8 @@ const MyPage = () => {
       setUserData({
         nickname: user.nickname || '',
         gender: user.gender || '',
-        ageRange: user.ageRange || ''
+        ageRange: user.ageRange || '',
+        email: user.email || ''
       });
     } else {
       fetchUserData();
@@ -101,7 +103,8 @@ const MyPage = () => {
       setUserData({
         nickname: data.nickname || '',
         gender: data.gender || '',
-        ageRange: data.ageRange || ''
+        ageRange: data.ageRange || '',
+        email: data.email || ''
       });
     } catch (error) {
       console.error('Error fetching user data:', error);
@@ -242,8 +245,8 @@ const MyPage = () => {
               <div className={styles.userDetails}>
                 <h2 className={styles.nickname}>{userData.nickname}</h2>
                 <div className={styles.additionalInfo}>
-                  <p>{ageRangeMap[userData.ageRange] || userData.ageRange}</p>
-                  <p>{userData.gender === 'MALE' ? '남성' : '여성'}</p>
+                  <p>{ageRangeMap[userData.ageRange] || userData.ageRange} {userData.gender === 'MALE' ? '남성' : '여성'}</p>
+                  <p>{userData.email}</p>
                 </div>
               </div>
             </div>
