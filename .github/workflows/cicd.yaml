@@ -3,7 +3,7 @@ name: 프런트엔드 CI/CD 워크플로우
 on:
   # main, develop 브랜치에 push, pull request가 발생했을 경우 실행
   push:
-    branches: [ CICD, develop ]
+    branches: [ main, develop ]
 
 jobs:
   build:
@@ -63,7 +63,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     # CICD 브랜치에 push가 된 경우에만 CD 실행
-    if: github.ref == 'refs/heads/CICD' && github.event_name == 'push'
+    #if: github.ref == 'refs/heads/main' && github.event_name == 'push'
 
     steps:
       # 아티팩트에서 빌드 결과물 다운로드
