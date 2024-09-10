@@ -46,10 +46,26 @@ const Home = () => {
   };
 
   const destinations = [
-    { title: '제주도', description: '아름다운 자연 경관과 다양한 체험 활동' },
-    { title: '설악산', description: '웅장한 산악 경관과 다양한 등산 코스' },
-    { title: '경복궁', description: '조선 시대 왕궁의 아름다운 건축물' },
-    { title: '해운대 해수욕장', description: '부산의 대표적인 해수욕장' },
+    { 
+      title: '제주도', 
+      description: '아름다운 자연 경관과 다양한 체험 활동',
+      image: 'https://blog.kakaocdn.net/dn/o1KIw/btqu9mflPY6/rGk1mM3iugV1c6jj9Z3E80/img.jpg'
+    },
+    { 
+      title: '설악산', 
+      description: '웅장한 산악 경관과 다양한 등산 코스',
+      image: 'https://i.namu.wiki/i/HYal2aJKsEFkoGMSROWNEnjciUi1w66SclYKmeYL1WWDb5gFGdHVjvbHmBMseb9E8JtOBrnBNhes2jG5bTEy5g.webp' //https://i.namu.wiki/i/toBthBckkitXhDJCPBceE4EVrSgbQh9kKtpCViy3qYbnm55E7YM-CIAH4tOVwfJ4Yme9OMJGRWMhT48rqYU0Cg.webp
+    },
+    { 
+      title: '경복궁', 
+      description: '조선 시대 왕궁의 아름다운 건축물',
+      image: 'https://mblogthumb-phinf.pstatic.net/MjAxODA0MDVfMTU5/MDAxNTIyOTA0MDczNDgx.9XbBJvQC0Cjd0_vRovae7PCd_96zzyNyQyc1nEtDVuAg.Xn7MGvNx5yiUOFsJUHzs8EBXTRiNvo5igzpZZ9NSYCYg.PNG.royalculture/%EA%B2%BD%EB%B3%B5%EA%B6%81%EC%82%AC%EC%A7%84.png?type=w800'
+    },
+    { 
+      title: '해운대 해수욕장', 
+      description: '부산의 대표적인 해수욕장',
+      image: 'https://image.ajunews.com/content/image/2021/12/09/20211209100930832728.jpg'
+    },
   ];
   
   return (
@@ -78,7 +94,7 @@ const Home = () => {
             maxLength="30"
             value={searchQuery}
             onChange={handleSearchChange}
-            onKeyPress={handleKeyPress} // 엔터 키 눌렀을 때 검색
+            onKeyPress={handleKeyPress}
           />
           <button className={styles.searchButton} onClick={handleSearchSubmit}>
             <span role="img" aria-label="search icon">🔍</span>
@@ -88,7 +104,12 @@ const Home = () => {
           <h1 className={styles.mainTitle}>최근 인기 여행지</h1>
           <div className={styles.destinationsGrid}>
             {destinations.map((dest, index) => (
-              <TrendingDestination key={index} title={dest.title} description={dest.description} />
+              <TrendingDestination 
+                key={index} 
+                title={dest.title} 
+                description={dest.description}
+                image={dest.image}
+              />
             ))}
           </div>
         </div>
