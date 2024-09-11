@@ -83,7 +83,7 @@ jobs:
           AWS_REGION: 'ap-northeast-2'
           SOURCE_DIR: 'build'
 
-      # 배포 워크플로우 종료 알림
+      # 배포 워크플로우 종료 알림.
       - name: Send result to discord
         uses: th0th/notify-discord@v0.4.1
         if: always()
